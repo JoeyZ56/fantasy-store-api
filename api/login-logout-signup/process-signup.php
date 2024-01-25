@@ -48,7 +48,7 @@ $checkEmailStmt->bind_param("s", $_POST["email"]);
 $checkEmailStmt->execute();
 $result = $checkEmailStmt->get_result();
 
-// Check if the email already exists
+// Check if the email field is empty
 if ($result->num_rows > 0) {
     die("Email already exists");
 }
