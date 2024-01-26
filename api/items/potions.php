@@ -49,3 +49,7 @@ $items_Potions = array(
         "image_url" => "https://content.thirtyonewhiskey.com/wp-content/uploads/2019/12/27115529/00100lrPORTRAIT_00100_BURST20191231111006764_COVER-scaled.jpg"
     ),
 );
+
+//output armor items as JSON
+header('Content-type: application/json');
+echo json_encode($items_Potions);

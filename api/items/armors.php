@@ -64,3 +64,7 @@ $items_Armor = array(
         "image_url" => "https://i.pinimg.com/originals/6d/6f/36/6d6f36c1847f7c63c542b66ba4f130d9.jpg"
     ),
 );
+
+//output armor items as JSON
+header('Content-type: application/json');
+echo json_encode($items_Armor);

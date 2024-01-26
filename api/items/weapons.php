@@ -73,3 +73,7 @@ $items_Weapons = array(
    
 
 );
+
+//output armor items as JSON
+header('Content-type: application/json');
+echo json_encode($items_Weapons);
