@@ -29,3 +29,8 @@ $items_Shields = array(
         "image_url" => "https://i.pinimg.com/originals/75/38/7a/75387a1c3f6aa51a86c4c9d6481ba680.jpg"
     ),
 );
+
+
+//output armor items as JSON
+header('Content-type: application/json');
+echo json_encode($items_Shields);

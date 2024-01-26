@@ -5,7 +5,7 @@ header('Access-Control-Allow-Origin: *');
 header('Access-Control-Allow-Headers: *');
 
 // Grimoires
-$items_Spells = array(
+$items_Grimoires = array(
     array(
         "id" => 27,
         "name" => "Demonic Grimoire",
@@ -37,3 +37,6 @@ $items_Spells = array(
 );
 
 
+//output armor items as JSON
+header('Content-type: application/json');
+echo json_encode($items_Grimoires);
