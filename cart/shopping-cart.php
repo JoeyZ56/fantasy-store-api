@@ -1,11 +1,32 @@
 <?php
 
+//Check for Preflight Requests
+// if ($_SERVER['REQUEST_METHOD'] === 'OPTIONS') {
+//     // CORS headers for preflight requests
+//     header('Access-Control-Allow-Origin: *');
+//     header('Access-Control-Allow-Headers: *');
+//     exit;
+// }
+
+
 // CORs
 header('Access-Control-Allow-Origin: *');
 header('Access-Control-Allow-Headers: *');
+header('Content-type: application/json');
+
 
 //Initialize session
 session_start();
+
+//Handle both GET and POST requests
+// $product_id = isset($_REQUEST['product_id']) ? $_REQUEST['product_id'] : null;
+
+// if ($_SERVER['REQUEST_METHOD'] === 'POST' && $product_id !== null) {
+//     addToCart($product_id);
+// } else {
+//     echo json_encode(['error' => 'Invalid request method or product id.']);
+// }
+
 
 //Add item to cart
 function addToCart($product_id, $quantity = 1) {
@@ -18,6 +39,10 @@ function addToCart($product_id, $quantity = 1) {
     } else {
         $_SESSION['cart'][$product_id] = $quantity;
     }
+
+    // Placeholder: Fetch product details from the database based on $productId
+    // Replace the following line with your actual logic
+    echo "Added item with id $product_id to the cart.";
 }
 
 //Update item in cart
@@ -38,8 +63,9 @@ function removeFromCart($product_id) {
 function displayCart() {
     if (isset($_SESSION['cart']) && !empty($_SESSION['cart'])) {
         foreach ($_SESSION['cart'] as $product_id => $quantity) {
-            // Fetch product details from the database based on $productId
-            // Display product details and quantity
+            // Placeholder: Fetch product details from the database based on $productId
+            // Replace the following line with your actual logic
+            echo "Product ID: $product_id, Quantity: $quantity\n";
         }
     } else {
         echo "Your cart is empty.";
@@ -50,3 +76,5 @@ function displayCart() {
 function checkout() {
     $_SESSION['cart'] = array();
 }
+
+
