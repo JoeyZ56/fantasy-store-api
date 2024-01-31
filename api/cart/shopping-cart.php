@@ -1,4 +1,7 @@
 <?php
+//Error reporting
+error_reporting(E_ALL);
+ini_set('display_errors', 'On');
 
 // Handle preflight requests
 if ($_SERVER['REQUEST_METHOD'] === 'OPTIONS') {
@@ -14,6 +17,8 @@ header('Access-Control-Allow-Headers: Content-Type'); // Adjust based on the hea
 
 // Initialize session
 session_start();
+error_log("Session data: " . print_r($_SESSION, true));
+
 
 // Handle both GET and POST requests
 $product_id = isset($_REQUEST['product_id']) ? $_REQUEST['product_id'] : null;
@@ -36,14 +41,17 @@ function addToCart($product_id, $quantity = 1) {
         $_SESSION['cart'][$product_id] = $quantity;
     }
 
-    // Placeholder: In a real scenario, you might fetch details from your configured items
+    // Fetch item details from the respective item file
     $itemDetails = getItemDetails($product_id);
 
     echo json_encode([
         "message" => "Added item to the cart.",
         "item_details" => $itemDetails
     ]);
+    // Make sure to exit to prevent additional output
+    exit;
 }
+
 
 // Display cart
 function displayCart() {
@@ -51,11 +59,12 @@ function displayCart() {
         $cartDetails = getCartDetails($_SESSION['cart']);
         echo json_encode($cartDetails);
     } else {
-        echo json_encode(["message" => "Your cart is empty."]);
+        echo json_encode(["message" => "Your cart is empty (Serverside)."]);
     }
 }
 
-// Placeholder: In a real scenario, you might fetch details from your configured items
+
+// Get item details from the respective item file
 function getItemDetails($product_id) {
     // Fetch item details based on $product_id from the respective item file
     $itemCategory = getItemCategory($product_id);
@@ -63,18 +72,32 @@ function getItemDetails($product_id) {
 
     if (file_exists($itemFile)) {
         $items = include($itemFile);
-        return $items[$product_id - 1]; // Assuming $product_id is the array index
+
+        // Find the item with the given product_id
+        foreach ($items as $item) {
+            if ($item['id'] == $product_id) {
+                return $item;
+            }
+        }
+
+        return ["error" => "Item not found with ID $product_id."];
     } else {
         return ["error" => "Item category file not found."];
     }
 }
 
-// Placeholder: In a real scenario, you might fetch details from your configured items
+// Get cart details including item details
 function getCartDetails($cart) {
     $cartDetails = array();
 
     foreach ($cart as $product_id => $quantity) {
         $itemDetails = getItemDetails($product_id);
+        
+        // Check if item details are fetched successfully
+        if (isset($itemDetails['error'])) {
+            return ["error" => "Failed to get cart details. " . $itemDetails['error']];
+        }
+
         $itemDetails['quantity'] = $quantity;
         $cartDetails[] = $itemDetails;
     }
@@ -82,18 +105,20 @@ function getCartDetails($cart) {
     return $cartDetails;
 }
 
-// Helper function to determine item category
+
 function getItemCategory($product_id) {
-    // This is a placeholder; you might have a better logic based on your structure
-    if ($product_id <= 3) {
+    if ($product_id >= 1 && $product_id <= 8) {
         return 'armors';
-    } elseif ($product_id <= 6) {
+    } elseif ($product_id >= 27 && $product_id <= 30) {
         return 'grimoires';
-    } elseif ($product_id <= 9) {
+    } elseif ($product_id >= 21 && $product_id <= 26) {
         return 'potions';
-    } elseif ($product_id <= 12) {
+    } elseif ($product_id >= 18 && $product_id <= 20) {
         return 'shields';
-    } else {
+    } elseif ($product_id >= 9 && $product_id <= 17) {
         return 'weapons';
+    } else {
+        return null;
     }
 }
+
