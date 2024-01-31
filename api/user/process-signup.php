@@ -1,5 +1,9 @@
-<!-- http://localhost/fantasy-store-api/api/login-logout-signup/process-signup.php -->
+<!-- http://localhost/fantasy-store-api/api/user/process-signup.php -->
 <?php
+//Error reporting
+error_reporting(E_ALL);
+ini_set('display_errors', 'On');
+
 // CORs
 header('Access-Control-Allow-Origin: *');
 header('Access-Control-Allow-Headers: *');

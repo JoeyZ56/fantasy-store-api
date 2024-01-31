@@ -1,8 +1,14 @@
 <?php
 
+//Error reporting
+error_reporting(E_ALL);
+ini_set('display_errors', 'On');
+
+
 // CORs
 header('Access-Control-Allow-Origin: *');
 header('Access-Control-Allow-Headers: *');
+header('Content-type: application/json');
 
 
 //Armor
@@ -65,6 +71,5 @@ $items_Armor = array(
     ),
 );
 
-//output armor items as JSON
-header('Content-type: application/json');
+
 echo json_encode($items_Armor);
