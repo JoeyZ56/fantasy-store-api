@@ -42,4 +42,4 @@ $items_Grimoires = array(
 
 
 
-echo json_encode($items_Grimoires);
+return $items_Grimoires;

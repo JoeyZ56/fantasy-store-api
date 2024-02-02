@@ -21,19 +21,23 @@ error_log("Session data: " . print_r($_SESSION, true));
 // Initialize response array
 $response = [];
 
+$response['items'] = $items; // This is the array of items from the included file
+
 // Handle both GET and POST requests
 $product_id = isset($_REQUEST['product_id']) ? $_REQUEST['product_id'] : null;
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST' && $product_id !== null) {
     $response['cartUpdate'] = addToCart($product_id);
 } else {
+    
     $response['cartContents'] = displayCart();
 }
 
-// Output the unified JSON response
 header('Content-Type: application/json');
 echo json_encode($response);
 exit;
+
+
 
 // Add item to cart
 function addToCart($product_id, $quantity = 1) {
