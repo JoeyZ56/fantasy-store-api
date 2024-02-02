@@ -78,4 +78,5 @@ $items_Weapons = array(
 
 );
 
+echo json_encode($items_Weapons);
 return $items_Weapons;

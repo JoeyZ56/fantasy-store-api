@@ -54,5 +54,5 @@ $items_Potions = array(
     ),
 );
 
-
+echo json_encode($items_Potions);
 return $items_Potions;
