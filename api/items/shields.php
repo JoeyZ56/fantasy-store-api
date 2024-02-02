@@ -36,4 +36,4 @@ $items_Shields = array(
 
 
 
-echo json_encode($items_Shields);
+return $items_Shields;

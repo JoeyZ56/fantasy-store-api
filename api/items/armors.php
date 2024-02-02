@@ -72,4 +72,4 @@ $items_Armor = array(
 );
 
 
-echo json_encode($items_Armor);
+return $items_Armor;
