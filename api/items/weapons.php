@@ -12,67 +12,67 @@ header('Content-type: application/json');
 //Weapons   
 $items_Weapons = array(
     array(
-        "id" => 9,
-        "name" => "Dark Steel Sword",
+        "id" => 33,
+        "name" => "Fire elemetal Sword",
         "price" => 999.99,
-        "description" => "Dark Steel Sword, it is a heavy sword that provides high damage and is used by knights.",
-        "image_url" => "https://www.thearmoury.shop/_uploads/img/products/giant/S5815.jpg"
+        "description" => "Fire elemetal Sword, it is a heavy sword that provides fire damage.",
+        "image_url" => "http://localhost/fantasy-store-api/api/assets/weapons/flamesword.webp"
     ),
     array(
-        "id" => 10,
-        "name" => "Bronze Steel Sword",
+        "id" => 34,
+        "name" => "Ice Flail",
         "price" => 899.99,
-        "description" => "Bronze Steel Sword, it is a heavy sword that provides high damage and is used by Kings Guards.",
-        "image_url" => "https://cdn.shopify.com/s/files/1/0038/2789/2293/products/402-09_26afa161-991e-4554-825f-924770222711.jpg?v=1564575565"
+        "description" => "Ice Flail, it is a heavy flail that provides ice damage.",
+        "image_url" => "http://localhost/fantasy-store-api/api/assets/weapons/iceflail.webp"
     ),
     array(
-        "id" => 11,
-        "name" => "Steel Dagger",
+        "id" => 35,
+        "name" => "Lighting Rapier",
         "price" => 799.99,
-        "description" => "Basic Steel Sword, it is a heavy sword that provides high damage and is used by Soldiers.",
-        "image_url" => "http://www.darksword-armory.com/wp-content/uploads/2016/05/black-prince-dagger-1811-medieval-dagger.jpg"
+        "description" => "Lighting Rapier, it is a light rapier that provides lighting damage.",
+        "image_url" => "http://localhost/fantasy-store-api/api/assets/weapons/lightningrapier.webp"
     ),
     array(
-        "id" => 12,
-        "name" => "Short Bow",
+        "id" => 36,
+        "name" => "Wind Short Bow",
         "price" => 499.99,
-        "description" => "Short Bow, it is a mid ranged weapon that provides high damage and is used by Rangers.",
-        "image_url" => "https://i.pinimg.com/originals/6f/63/78/6f6378484c5b6475907f80e83a4d5ebb.jpg"
+        "description" => "Wind Short Bow, it is a mid ranged weapon that provides wind damage.",
+        "image_url" => "http://localhost/fantasy-store-api/api/assets/weapons/windbow.webp"
     ),
     array(
-        "id" => 13,
-        "name" => "Long Bow",
+        "id" => 37,
+        "name" => "Magma Great Hammer",
         "price" => 699.99,
-        "description" => "Long Bow, it is a far ranged weapon that provides high damage and is used by Rangers.",
-        "image_url" => "https://www.battlemerchant.com/images/product_images/original_images/0612186140_bogen_langbogen_longbow.jpg"
+        "description" => "Magma Great Hammer, it is a heavy hammer that provides fire damage.",
+        "image_url" => "http://localhost/fantasy-store-api/api/assets/weapons/magmagreathammer.webp"
     ),
     array(
-        "id" => 14,
-        "name" => "Crossbow",
+        "id" => 38,
+        "name" => "Shadow Scythe",
         "price" => 999.99,
-        "description" => "Crossbow, it is a heavy crossbow that provides high damage and is used by Infantry.",
-        "image_url" => "https://cdn.shopify.com/s/files/1/2080/1501/products/14thC_steel_crossbow_1.JPG?v=1518597730"
+        "description" => "Shadow Scythe, it is a heavy scythe that provides shadow damage.",
+        "image_url" => "http://localhost/fantasy-store-api/api/assets/weapons/shadowscythe.webp"
     ),
     array(
-        "id" => 15,
-        "name" => "Great Axe",
+        "id" => 39,
+        "name" => "Earth Axe",
         "price" => 1399.99,
-        "description" => "Two Handed Axe, it is a heavy axe that provides high damage and is used by Vikings.",
-        "image_url" => "https://i.pinimg.com/originals/04/69/7b/04697bbfa2daac59ad080e08b098fc2f.jpg"
+        "description" => "Earth Axe, it is a one handed axe that provides earth damage.",
+        "image_url" => "http://localhost/fantasy-store-api/api/assets/weapons/earthaxe.webp"
     ),
     array(
-        "id" => 16,
-        "name" => "Spear",
+        "id" => 40,
+        "name" => "Water Spear",
         "price" => 399.99,
-        "description" => "Spear, it is a light spear that provides high damage and is used by Infantry.",
-        "image_url" => "https://media.sketchfab.com/models/0168a9897b6f47a180e7d63dca25085f/thumbnails/427ae67baaa340af97880a3e5690b7a5/f74afb2f33dc45d5970ec130deb95755.jpeg"
+        "description" => "Water Spear, it is a light spear that provides water damage.",
+        "image_url" => "http://localhost/fantasy-store-api/api/assets/weapons/waterspear.webp"
     ),
     array(
-        "id" => 17,
-        "name" => "Mace",
+        "id" => 41,
+        "name" => "Elemental Staff",
         "price" => 899.99,
-        "description" => "Mace, it is a heavy mace that provides high damage and is used by Infantry.",
-        "image_url" => "https://img1.cgtrader.com/items/3125412/774280b861/medieval-mace-3d-model-low-poly-obj-fbx-blend.jpg"
+        "description" => "Elemental Staff, it is a staff that provides elemental damage.",
+        "image_url" => "http://localhost/fantasy-store-api/api/assets/weapons/elementalstaff.webp"
     ),
    
 

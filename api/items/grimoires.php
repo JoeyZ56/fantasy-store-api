@@ -8,35 +8,72 @@ header('Access-Control-Allow-Origin: *');
 header('Access-Control-Allow-Headers: *');
 header('Content-type: application/json');
 
+
+
 // Grimoires
 $items_Grimoires = array(
     array(
-        "id" => 27,
-        "name" => "Demonic Grimoire",
-        "price" => 99.99,
-        "description" => "Demonic Grimoire, it is a grimoire that contains demonic spells.",
-        "image_url" => "https://static.turbosquid.com/Preview/2015/03/09__18_17_26/1.png2af64f20-5f72-4fa4-b4cf-2e803b783eeeOriginal.jpg"
+        "id" => 11,
+        "name" => "Fire Grimoire",
+        "price" => 499.99,
+        "description" => "Fire Grimoire, it is a grimoire that contains fire spells.",
+        "image_url" => "http://localhost/fantasy-store-api/api/assets/grimoires/firegrimoire.webp"
     ),
     array(
-        "id" => 28,
-        "name" => "Demonic Grimoire",
-        "price" => 99.99,
-        "description" => "Demonic Grimoire, it is a grimoire that contains demonic spells.",
-        "image_url" => "https://static.turbosquid.com/Preview/2015/03/09__18_17_26/1.png2af64f20-5f72-4fa4-b4cf-2e803b783eeeOriginal.jpg"
+        "id" => 12,
+        "name" => "Ice Grimoire",
+        "price" => 499.99,
+        "description" => "Ice Grimoire, it is a grimoire that contains ice spells.",
+        "image_url" => "http://localhost/fantasy-store-api/api/assets/grimoires/icegrimoire.webp"
     ),
     array(
-        "id" => 29,
+        "id" => 13,
+        "name" => "Water Grimoire",
+        "price" => 499.99,
+        "description" => "Water Grimoire, it is a grimoire that contains water spells.",
+        "image_url" => "http://localhost/fantasy-store-api/api/assets/grimoires/watergrimoire.webp"
+    ),
+    array(
+        "id" => 14,
+        "name" => "Earth Grimoire",
+        "price" => 499.99,
+        "description" => "Earth Grimoire, it is a grimoire that contains earth spells.",
+        "image_url" => "http://localhost/fantasy-store-api/api/assets/grimoires/earthgrimoire.webp"
+    ),
+    array(
+        "id" => 15,
+        "name" => "Wind Grimoire",
+        "price" => 499.99,
+        "description" => "Wind Grimoire, it is a grimoire that contains wind spells.",
+        "image_url" => "http://localhost/fantasy-store-api/api/assets/grimoires/windgrimoire.webp"
+    ),
+    array(
+        "id" => 16,
+        "name" => "Lighting Grimoire",
+        "price" => 599.99,
+        "description" => "Lighting Grimoire, it is a grimoire that contains lighting spells.",
+        "image_url" => "http://localhost/fantasy-store-api/api/assets/grimoires/lightinggrimoire.webp"
+    ),
+    array(
+        "id" => 17,
         "name" => "Shadow Grimoire",
-        "price" => 99.99,
+        "price" => 599.99,
         "description" => "Shadow Grimoire, it is a grimoire that contains shadow spells.",
-        "image_url" => "https://64.media.tumblr.com/8335dac03c0d3ea8ab90e7d11df54781/tumblr_oy0hfgQGs31qas1mto7_1280.jpg"
+        "image_url" => "http://localhost/fantasy-store-api/api/assets/grimoires/shadowgrimoire.webp"
     ),
     array(
-        "id" => 30,
-        "name" => "Arcane Grimoire",
-        "price" => 99.99,
-        "description" => "Acrcane Grimoire, it is a grimoire that contains arcane spells.",
-        "image_url" => "https://i.pinimg.com/736x/8f/8a/b5/8f8ab5448157f4b337fda8eca56b4bd8.jpg"
+        "id" => 18,
+        "name" => "Necromancy Grimoire",
+        "price" => 699.99,
+        "description" => "Necromancy Grimoire, it is a grimoire that contains necromancy spells.",
+        "image_url" => "http://localhost/fantasy-store-api/api/assets/grimoires/necromancygrimoire.webp"
+    ),
+    array(
+        "id" => 19,
+        "name" => "Demonic Summoning Grimoire",
+        "price" => 999.99,
+        "description" => "Demonic Summoning Grimoire, it is a grimoire that contains demonic summoning spells.",
+        "image_url" => "http://localhost/fantasy-store-api/api/assets/grimoires/demongrimoire.webp"
     ),
 );
 

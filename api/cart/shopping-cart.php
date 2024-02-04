@@ -114,22 +114,22 @@ function getCartDetails($cart) {
     return $cartDetails;
 }
 
-//armors 1-8
-//weapons 9-17
-//shields 18-20
-//potions 21-26
-//grimoires 27-30
+//armors 1-10
+//grimoires 11-19
+//potions 20-27
+//shields 28-32
+//weapons 33-41
 function getItemCategory($product_id) {
-    if ($product_id >= 1 && $product_id <= 8) {
+    if ($product_id >= 1 && $product_id <= 10) {
         return 'armors';
-    } elseif ($product_id >= 9 && $product_id <= 17) {
-        return 'weapons';
-    } elseif ($product_id >= 18 && $product_id <= 20) {
-        return 'shields';
-    } elseif ($product_id >= 21 && $product_id <= 26) {
-        return 'potions';
-    } elseif ($product_id >= 27 && $product_id <= 30) {
+    } elseif ($product_id >= 11 && $product_id <= 19) {
         return 'grimoires';
+    } elseif ($product_id >= 20 && $product_id <= 27) {
+        return 'potions';
+    } elseif ($product_id >= 28 && $product_id <= 32) {
+        return 'shields';
+    } elseif ($product_id >= 33 && $product_id <= 41) {
+        return 'weapons';
     } else {
         return 'unknown';
     }
