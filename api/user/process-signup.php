@@ -1,49 +1,63 @@
-<!-- http://localhost/fantasy-store-api/api/user/process-signup.php -->
 <?php
-//Error reporting
+// Error reporting
 error_reporting(E_ALL);
 ini_set('display_errors', 'On');
 
-// CORs
+// Start session
+session_start();
+
+// CORS
 header('Access-Control-Allow-Origin: *');
 header('Access-Control-Allow-Headers: *');
 
+$errors = [];
+
 // Validate Name
 if (empty($_POST["name"])) {
-    die("Name is required");
+    $errors[] = "Name is required";
 }
 
 // Validate Email
 if (!filter_var($_POST["email"], FILTER_VALIDATE_EMAIL)) {
-    die("Invalid email format");
+    $errors[] = "Invalid email format";
 }
 
 // Validate Password
-// For testing password length is 3
 if (strlen($_POST["password"]) < 3) {
-    die("Password must be at least 3 characters long");
+    $errors[] = "Password must be at least 3 characters long";
 }
 
-// Password must contain one letter
 if (!preg_match("/[a-z]/i", $_POST["password"])) {
-    die("Password must contain at least one letter");
+    $errors[] = "Password must contain at least one letter";
 }
 
-// Password must contain one number
 if (!preg_match("/[0-9]/", $_POST["password"])) {
-    die("Password must contain at least one number");
+    $errors[] = "Password must contain at least one number";
 }
 
 // Validate Confirm Password
 if ($_POST["password"] != $_POST["password_confirmation"]) {
-    die("Password does not match");
+    $errors[] = "Password does not match";
 }
 
-// MANDATORY!!!! Hash the password
+if (!empty($errors)) {
+    http_response_code(400); // Bad request
+    header('Content-Type: application/json');
+    echo json_encode(["success" => false, "errors" => $errors]);
+    exit;
+}
+
+// Hash the password
 $password_hash = password_hash($_POST["password"], PASSWORD_DEFAULT);
 
-// Connect to the database
 require_once("../database/database.php");
+
+// Database connection error handling
+if ($mysqli->connect_errno) {
+    http_response_code(500); // Internal Server Error
+    echo json_encode(["success" => false, "errors" => ["Database connection failed: " . $mysqli->connect_error]]);
+    exit;
+}
 
 // Check if email already exists
 $checkEmailSql = "SELECT * FROM user WHERE email = ?";
@@ -52,12 +66,13 @@ $checkEmailStmt->bind_param("s", $_POST["email"]);
 $checkEmailStmt->execute();
 $result = $checkEmailStmt->get_result();
 
-// Check if the email field is empty
 if ($result->num_rows > 0) {
-    die("Email already exists");
+    $checkEmailStmt->close();
+    http_response_code(409); // Conflict
+    echo json_encode(["success" => false, "errors" => ["Email already exists"]]);
+    exit;
 }
 
-// Close the statement
 $checkEmailStmt->close();
 
 // Insert new user
@@ -65,14 +80,24 @@ $insertUserSql = "INSERT INTO user (name, email, password_hash) VALUES (?, ?, ?)
 $insertUserStmt = $mysqli->prepare($insertUserSql);
 $insertUserStmt->bind_param("sss", $_POST["name"], $_POST["email"], $password_hash);
 
-// Execute the statement
 if ($insertUserStmt->execute()) {
-    header("Location: http://localhost:5173/login");
-    exit;
+        // Fetch the last inserted ID if needed
+        $userId = $mysqli->insert_id;
+
+        // Set necessary session variables
+        $_SESSION['user_id'] = $userId;
+        $_SESSION['user_name'] = $_POST["name"];
+        $_SESSION['logged_in'] = true;
+    
+        // Redirect to the homepage or user dashboard
+        echo json_encode(["success" => true, "redirect" => "http://localhost:5173/"]);
+exit;
+    
 } else {
-    echo "Error: " . $insertUserSql . "<br>" . $mysqli->error;
+    $errors[] = "Error: " . $insertUserSql . "<br>" . $mysqli->error;
+    http_response_code(500); // Internal Server Error
+    echo json_encode(["success" => false, "errors" => $errors]);
 }
 
-// Close the statement
 $insertUserStmt->close();
-?>
+exit;

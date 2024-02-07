@@ -1,17 +1,18 @@
 <?php
 //Error reporting
-error_reporting(E_ALL);
-ini_set('display_errors', 'On');
+// error_reporting(E_ALL);
+// ini_set('display_errors', 'On');
 
 // CORs
 header('Access-Control-Allow-Origin: *');
 header('Access-Control-Allow-Headers: *');
-header('Content-type: application/json');
+
 
 
 
 // Grimoires
-$items_Grimoires = array(
+function getGrimoireItems(){
+$Grimoires = array(
     array(
         "id" => 11,
         "name" => "Fire Grimoire",
@@ -56,20 +57,27 @@ $items_Grimoires = array(
     ),
     array(
         "id" => 17,
+        "name" => "Arcane Grimoire",
+        "price" => 699.99,
+        "description" => "Lighting Grimoire, it is a grimoire that contains lighting spells.",
+        "image_url" => "http://localhost/fantasy-store-api/api/assets/grimoires/arcanegrimoire.webp"
+    ),
+    array(
+        "id" => 18,
         "name" => "Shadow Grimoire",
         "price" => 599.99,
         "description" => "Shadow Grimoire, it is a grimoire that contains shadow spells.",
         "image_url" => "http://localhost/fantasy-store-api/api/assets/grimoires/shadowgrimoire.webp"
     ),
     array(
-        "id" => 18,
+        "id" => 19,
         "name" => "Necromancy Grimoire",
         "price" => 699.99,
         "description" => "Necromancy Grimoire, it is a grimoire that contains necromancy spells.",
         "image_url" => "http://localhost/fantasy-store-api/api/assets/grimoires/necromancygrimoire.webp"
     ),
     array(
-        "id" => 19,
+        "id" => 20,
         "name" => "Demonic Summoning Grimoire",
         "price" => 999.99,
         "description" => "Demonic Summoning Grimoire, it is a grimoire that contains demonic summoning spells.",
@@ -77,6 +85,14 @@ $items_Grimoires = array(
     ),
 );
 
+return $Grimoires;
 
-echo json_encode($items_Grimoires);
-return $items_Grimoires;
+};
+
+
+if (!defined('FROM_GALLERY')) {
+    header('Content-Type: application/json');
+    echo json_encode(getGrimoireItems());
+}
+
+return getGrimoireItems();

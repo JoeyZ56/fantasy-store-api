@@ -1,7 +1,7 @@
 <?php
 // Error reporting
-error_reporting(E_ALL);
-ini_set('display_errors', 'On');
+// error_reporting(E_ALL);
+// ini_set('display_errors', 'On');
 
 // Handle preflight requests
 if ($_SERVER['REQUEST_METHOD'] === 'OPTIONS') {
@@ -122,13 +122,13 @@ function getCartDetails($cart) {
 function getItemCategory($product_id) {
     if ($product_id >= 1 && $product_id <= 10) {
         return 'armors';
-    } elseif ($product_id >= 11 && $product_id <= 19) {
+    } elseif ($product_id >= 11 && $product_id <= 20) {
         return 'grimoires';
-    } elseif ($product_id >= 20 && $product_id <= 27) {
+    } elseif ($product_id >= 21 && $product_id <= 28) {
         return 'potions';
-    } elseif ($product_id >= 28 && $product_id <= 32) {
+    } elseif ($product_id >= 29 && $product_id <= 33) {
         return 'shields';
-    } elseif ($product_id >= 33 && $product_id <= 41) {
+    } elseif ($product_id >= 34 && $product_id <= 42) {
         return 'weapons';
     } else {
         return 'unknown';
