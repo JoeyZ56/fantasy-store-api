@@ -28,5 +28,3 @@ $itemResult = $mysqli->query($itemQuery);
 
 //fetch user orders
 
-//close connection
-$mysqli->close();

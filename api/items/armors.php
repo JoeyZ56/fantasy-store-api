@@ -1,18 +1,19 @@
 <?php
 
 //Error reporting
-error_reporting(E_ALL);
-ini_set('display_errors', 'On');
+// error_reporting(E_ALL);
+// ini_set('display_errors', 'On');
 
 
 // CORs
 header('Access-Control-Allow-Origin: *');
 header('Access-Control-Allow-Headers: *');
-header('Content-type: application/json');
+
 
 
 //Armor
-$items_Armor = array(
+function getArmorItems(){
+$Armors = array(
     array(
         "id" => 1,
         "name" => "Knights Armor Set",
@@ -85,5 +86,17 @@ $items_Armor = array(
     ),
 );
 
-echo json_encode($items_Armor);
-return $items_Armor;
+return $Armors;
+
+};
+
+if (!defined('FROM_GALLERY')) {
+    header('Content-Type: application/json');
+    echo json_encode(getArmorItems());
+    exit();
+}
+
+return getArmorItems();
+
+
+

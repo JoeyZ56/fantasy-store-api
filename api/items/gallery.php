@@ -1,12 +1,12 @@
 <?php
-ob_start();
-
 // Enable error reporting for debugging
-error_reporting(E_ALL);
-ini_set('display_errors', 1);
+
 
 header('Access-Control-Allow-Origin: *');
+header('Access-Control-Allow-Headers: *');
 header('Content-Type: application/json');
+
+define('FROM_GALLERY', true);
 
 // Include all item files
 $itemFiles = ['armors.php', 'weapons.php', 'shields.php', 'potions.php', 'grimoires.php'];
@@ -14,11 +14,11 @@ $itemFiles = ['armors.php', 'weapons.php', 'shields.php', 'potions.php', 'grimoi
 $galleryImages = [];
 
 foreach ($itemFiles as $file) {
-    $filePath = __DIR__ . '/' . $file; // Adjust __DIR__ if necessary to point to the correct directory
+    $filePath = __DIR__ . '/' . $file; 
     if (file_exists($filePath)) {
         $items = include($filePath);
         foreach ($items as $item) {
-            // Assuming each item has an 'id', 'name', and 'image_url'
+            
             $galleryImages[] = [
                 'id' => $item['id'],
                 'name' => $item['name'],
@@ -31,6 +31,6 @@ foreach ($itemFiles as $file) {
     }
 }
 
-ob_get_clean(); // Discard any output buffered before this point
-echo json_encode($galleryImages); // Corrected variable name
+// header('Content-Type: application/json');
+echo json_encode($galleryImages); 
 exit;
