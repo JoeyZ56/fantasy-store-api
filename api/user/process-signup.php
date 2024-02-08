@@ -80,19 +80,21 @@ $insertUserSql = "INSERT INTO user (name, email, password_hash) VALUES (?, ?, ?)
 $insertUserStmt = $mysqli->prepare($insertUserSql);
 $insertUserStmt->bind_param("sss", $_POST["name"], $_POST["email"], $password_hash);
 
-if ($insertUserStmt->execute()) {
-        // Fetch the last inserted ID if needed
-        $userId = $mysqli->insert_id;
+if ($insertUserStmt-> execute()) {
+    //fetch the last inserted ID
+    $userId = $mysqli->insert_id;
 
-        // Set necessary session variables
-        $_SESSION['user_id'] = $userId;
-        $_SESSION['user_name'] = $_POST["name"];
-        $_SESSION['logged_in'] = true;
-    
-        // Redirect to the homepage or user dashboard
-        echo json_encode(["success" => true, "redirect" => "http://localhost:5173/"]);
-exit;
-    
+    //set session variables
+    $_SESSION["user_id"] = $userId;
+    $_SESSION["user_name"] = $_POST["name"]; //store the username in the session
+    $_SESSION["logged_in"] = true;
+
+    echo json_encode([
+        "success" => true,
+        "redirect" => "http://localhost:5173/",
+        "username" => $_POST["name"], //send the username back to the frontend
+    ]);
+    exit;
 } else {
     $errors[] = "Error: " . $insertUserSql . "<br>" . $mysqli->error;
     http_response_code(500); // Internal Server Error
