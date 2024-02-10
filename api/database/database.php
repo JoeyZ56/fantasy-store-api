@@ -5,26 +5,14 @@ $dbname = 'fantasy-store';
 $username = 'root';
 $password = '';
 
+// Create a new mysqli connection
 $mysqli = new mysqli($host, $username, $password, $dbname);
 
+// Check for a connection error
 if ($mysqli->connect_errno) {
-    echo "Failed to connect to MySQL: (" . $mysqli->connect_errno . ") " 
-    . $mysqli->connect_error;
+    die("Failed to connect to MySQL: " . $mysqli->connect_error);
 }
 
-//fetch user
-$userQuery = "SELECT * FROM user";
-$userResult = $mysqli->query($userQuery);
-
-//fetch items
-$itemQuery = "SELECT * FROM items";
-$itemResult = $mysqli->query($itemQuery);
-
-//fetch cart
-
-//fetch orders
-
-//fetch order items
-
-//fetch user orders
-
+// Optionally return the connection object
+// This allows for including this file and getting the $mysqli variable
+return $mysqli;
