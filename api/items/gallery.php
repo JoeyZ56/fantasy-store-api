@@ -20,7 +20,7 @@ foreach ($itemFiles as $file) {
         foreach ($items as $item) {
             
             $galleryImages[] = [
-                'id' => $item['id'],
+                'item_id' => $item['item_id'],
                 'name' => $item['name'],
                 'image_url' => $item['image_url'],
             ];

@@ -11,78 +11,89 @@ header('Access-Control-Allow-Headers: *');
 
 
 
+
 //Armor
-function getArmorItems(){
+function getArmorsItems(){
 $Armors = array(
     array(
-        "id" => 1,
+        "item_id" => 1,
         "name" => "Knights Armor Set",
-        "price" => 2999.99,
-        "description" => "Dark Steel Set, it is a heavy armor set that provides high defense and is used by knights.",
-        "image_url" => "http://localhost/fantasy-store-api/api/assets/armors/knightsarmorset.webp"
+        "price" => 5999.99,
+        "description" => "Steel Set, it is a heavy armor set that provides high defense.",
+        "image_url" => "http://localhost/fantasy-store-api/api/assets/armors/knightsarmorset.webp",
+        "category" => "armors"
     ),
     array(
-        "id" => 2,
+        "item_id" => 2,
         "name" => "Paladin Armor Set",
-        "price" => 2699.99,
-        "description" => "Bronze Steel Set, it is a heavy armor set that provides high defense and is used by Kings Guards.",
-        "image_url" => "http://localhost/fantasy-store-api/api/assets/armors/paladinarmorset.webp"
+        "price" => 7777.77,
+        "description" => "Steel & Gold Set, it is a heavy armor set that provides high defense and is used by Paladins.",
+        "image_url" => "http://localhost/fantasy-store-api/api/assets/armors/paladinarmorset.webp",
+        "category" => "armors"
     ),
     array(
-        "id" => 3,
+        "item_id" => 3,
         "name" => "Flame Armor Set",
-        "price" => 1899.99,
-        "description" => "Basic Steel Set, it is a heavy armor set that provides high defense and is used by Soldiers.",
-        "image_url" => "http://localhost/fantasy-store-api/api/assets/armors/firearmorset.webp"
+        "price" => 7999.99,
+        "description" => "Steel & Fire Set, it is a heavy armor set that provides high defense to fire.",
+        "image_url" => "http://localhost/fantasy-store-api/api/assets/armors/firearmorset.webp",
+        "category" => "armors"
     ),
     array(
-        "id" => 4,
+        "item_id" => 4,
         "name" => "Ice Armor Set",
-        "price" => 3199.99,
-        "description" => "Nordic Leather Set, it is a light armor set that provides high defense and is used by Vikings.",
-        "image_url" => "http://localhost/fantasy-store-api/api/assets/armors/icearmorset.webp"
+        "price" => 7999.99,
+        "description" => "Steel & Ice Set, it is a heavy armor set that provides high defense to ice and cold resistant.",
+        "image_url" => "http://localhost/fantasy-store-api/api/assets/armors/icearmorset.webp",
+        "category" => "armors"
     ),
     array(
-        "id" => 5,
+        "item_id" => 5,
         "name" => "Water Armor Set",
-        "price" => 2799.99,
-        "description" => "Leather & Chainmail Set, it is a light armor set that provides high defense and is used by Foot Soldiers.",
-        "image_url" => "http://localhost/fantasy-store-api/api/assets/armors/waterarmorset.webp"
+        "price" => 8999.99,
+        "description" => "Steel & Water Set, it is a heavy armor set that provides high defense to water and give the user the ability to breath under water.",
+        "image_url" => "http://localhost/fantasy-store-api/api/assets/armors/waterarmorset.webp",
+        "category" => "armors"
     ),
     array(
-        "id" => 6,
+        "item_id" => 6,
         "name" => "Rock Armor Set",
-        "price" => 1499.99,
-        "description" => "Assassin Set, it is a light armor set that provides high defense and is used by Assassins.",
-        "image_url" => "http://localhost/fantasy-store-api/api/assets/armors/rockarmorset.webp"
+        "price" => 9999.99,
+        "description" => "Steel & Rock Set, it is a heavy armor set that provides extremely high defense and is used by Tanks.",
+        "image_url" => "http://localhost/fantasy-store-api/api/assets/armors/rockarmorset.webp",
+        "category" => "armors"
     ),
     array(
-        "id" => 7,
+        "item_id" => 7,
         "name" => "Lightning Armor Set",
-        "price" => 700,
-        "description" => "Nordic Winter Set, it is a Heavy armor set that provides high defense and is used by Vikings.",
-        "image_url" => "http://localhost/fantasy-store-api/api/assets/armors/lightningarmorset.webp"
+        "price" => 13999.99,
+        "description" => "Steel & Lightning Set, it is a heavy armor set that provides high defense to lightning and give the user the ability to move faster.",
+        "image_url" => "http://localhost/fantasy-store-api/api/assets/armors/lightningarmorset.webp",
+        "category" => "armors"
     ),
     array(
-        "id" => 8,
+        "item_id" => 8,
         "name" => "Shadow Armor Set",
-        "price" => 2199.99,
-        "description" => "Female Ranger Set, it is a light armor set that provides high defense and is used by Rangers.",
-        "image_url" => "http://localhost/fantasy-store-api/api/assets/armors/shadowarmorset.webp"
+        "price" => 14999.99,
+        "description" => "Steel & Shadow Set, it is a heavy armor set that provides high defense to shadow and give the user the ability to teleport through shadows.",
+        "image_url" => "http://localhost/fantasy-store-api/api/assets/armors/shadowarmorset.webp",
+        "category" => "armors"
     ),
     array(
-        "id" => 9,
+        "item_id" => 9,
         "name" => "Necromancer Armor Set",
-        "price" => 2199.99,
-        "description" => "Female Ranger Set, it is a light armor set that provides high defense and is used by Rangers.",
-        "image_url" => "http://localhost/fantasy-store-api/api/assets/armors/necromancerarmorset.webp"
+        "price" => 21999.99,
+        "description" => "Steel & Dark Set, it is a heavy armor set that provides high defense to dark and give the user the ability to summon common undead creatures.",
+        "image_url" => "http://localhost/fantasy-store-api/api/assets/armors/necromancerarmorset.webp",
+        "category" => "armors"
     ),
     array(
-        "id" => 10,
+        "item_id" => 10,
         "name" => "Demon Armor Set",
-        "price" => 2199.99,
-        "description" => "Female Ranger Set, it is a light armor set that provides high defense and is used by Rangers.",
-        "image_url" => "http://localhost/fantasy-store-api/api/assets/armors/demonarmorset.webp"
+        "price" => 29999.99,
+        "description" => "Steel & Demon Set, it is a heavy armor set that provides high defense to dark and give the user the ability to summon common demons.",
+        "image_url" => "http://localhost/fantasy-store-api/api/assets/armors/demonarmorset.webp",
+        "category" => "armors"
     ),
 );
 
@@ -92,11 +103,11 @@ return $Armors;
 
 if (!defined('FROM_GALLERY')) {
     header('Content-Type: application/json');
-    echo json_encode(getArmorItems());
+    echo json_encode(getArmorsItems());
     exit();
 }
 
-return getArmorItems();
+return getArmorsItems();
 
 
 
