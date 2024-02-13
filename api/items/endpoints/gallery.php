@@ -12,11 +12,11 @@ $baseUrl = 'http://localhost/fantasy-store-api/api/items/endpoints';
 
 // Define API endpoints for each item type
 $itemEndpoints = [
-    'armors' => $baseUrl . '/armors.php',
-    'weapons' => $baseUrl . '/weapons.php',
-    'shields' => $baseUrl . '/shields.php',
-    'potions' => $baseUrl . '/potions.php',
-    'grimoires' => $baseUrl . '/grimoires.php',
+    'armors' => $baseUrl . '/getArmors.php',
+    'weapons' => $baseUrl . '/getWeapons.php',
+    'shields' => $baseUrl . '/getShields.php',
+    'potions' => $baseUrl . '/getPotions.php',
+    'grimoires' => $baseUrl . '/getGrimoires.php',
 ];
 
 $galleryImages = [];

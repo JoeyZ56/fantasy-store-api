@@ -11,11 +11,6 @@ if ($mysqli->connect_error) {
     die("Connection failed: " . $mysqli->connect_error);
 }
 
-// require_once 'armors.php'; // Adjust the path as needed
-// $armors = getArmorsItems();
-// echo "<pre>";
-// print_r($armors);
-// echo "</pre>";
 
 
 // Begin transaction for atomicity
@@ -25,11 +20,11 @@ try {
     // Define the item types and corresponding file paths
     $itemTypes = [
         
-        'grimoires' => 'grimoires.php',
-        'potions' => 'potions.php', 
-        'shields' => 'shields.php', 
-        'weapons' => 'weapons.php',
-        'armors' => 'armors.php',
+        'grimoires' => '../items/data/grimoires.php',
+        'potions' => '../items/data/potions.php', 
+        'shields' => '../items/data/shields.php', 
+        'weapons' => '../items/data/weapons.php',
+        'armors' => '../items/data/armors.php',
     ];
 
     foreach ($itemTypes as $category => $filePath) {
