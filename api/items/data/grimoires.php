@@ -1,13 +1,7 @@
 <?php
 //Error reporting
-// error_reporting(E_ALL);
-// ini_set('display_errors', 'On');
-
-// CORs
-header('Access-Control-Allow-Origin: *');
-header('Access-Control-Allow-Headers: *');
-
-
+error_reporting(E_ALL);
+ini_set('display_errors', 'On');
 
 
 // Grimoires
@@ -100,9 +94,3 @@ return $Grimoires;
 };
 
 
-if (!defined('FROM_GALLERY')) {
-    header('Content-Type: application/json');
-    echo json_encode(getGrimoiresItems());
-}
-
-return getGrimoiresItems();
