@@ -1,7 +1,8 @@
 <?php
+
 // Error reporting
-// error_reporting(E_ALL);
-// ini_set('display_errors', 'On');
+error_reporting(E_ALL);
+ini_set('display_errors', 1);
 
 // Handle preflight requests
 if ($_SERVER['REQUEST_METHOD'] === 'OPTIONS') {
@@ -18,13 +19,24 @@ header('Access-Control-Allow-Headers: *');
 session_start();
 error_log("Session data: " . print_r($_SESSION, true));
 
+
+
 // Initialize response array
 $response = [];
 
-$response['items'] = $items; // This is the array of items from the included file
 
 // Handle both GET and POST requests
-$product_id = isset($_REQUEST['product_id']) ? $_REQUEST['product_id'] : null;
+$product_id = isset($_REQUEST['item_id']) ? $_REQUEST['item_id'] : null;
+error_log("Product ID: " . $product_id);
+error_log("Received request: " . print_r($_REQUEST, true));
+
+if ($product_id !== null) {
+    $itemDetails = getItemDetails($product_id);
+    $response['item'] = $itemDetails; // Use the result of getItemDetails
+} else {
+    $response['item'] = null; // Or handle the case where $product_id is null
+}
+
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST' && $product_id !== null) {
     $response['cartUpdate'] = addToCart($product_id);
@@ -70,27 +82,29 @@ function displayCart() {
 
 function getItemDetails($product_id) {
     $itemCategory = getItemCategory($product_id);
-    $itemFile = "../items/$itemCategory.php"; // Adjusted relative path
+    $itemFile = "../items/$itemCategory.php"; // Ensure this path is correct
+   
 
+    // Ensure the file exists and include it
     if (file_exists($itemFile)) {
-        $items = include($itemFile);
+        $items = include($itemFile); // Capture the included data
 
-        // Find the item with the given product_id
+        // Ensure $items is an array or object before attempting to use it
         if (is_array($items) || is_object($items)) {
-        foreach ($items as $item) {
-            if ($item['id'] == $product_id) {
-                return $item;
+            foreach ($items as $item) {
+                if ($item['id'] == $product_id) {
+                    return $item; // Return the found item
+                }
             }
-        }
+            return ["error" => "Item not found with ID $product_id."];
         } else {
-            return ["error" => "Item file does not contain an array."];
+            return ["error" => "Item file for $itemCategory does not contain an array or object."];
         }
-
-        return ["error" => "Item not found with ID $product_id."];
     } else {
-        return ["error" => "Item category file not found for $itemFile."];
+        return ["error" => "Item category file not found for $itemCategory."];
     }
 }
+
 
 
 
@@ -111,14 +125,10 @@ function getCartDetails($cart) {
         $cartDetails[] = $itemDetails;
     }
 
-    return $cartDetails;
+    // return $cartDetails;
+    json_encode($cartDetails);
 }
 
-//armors 1-10
-//grimoires 11-19
-//potions 20-27
-//shields 28-32
-//weapons 33-41
 function getItemCategory($product_id) {
     if ($product_id >= 1 && $product_id <= 10) {
         return 'armors';
