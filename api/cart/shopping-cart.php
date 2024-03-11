@@ -1,8 +1,9 @@
 <?php
 
 // Error reporting
-error_reporting(E_ALL);
-ini_set('display_errors', 1);
+ini_set('display_errors', 0); 
+error_reporting(E_ALL); 
+
 
 // Handle preflight requests
 if ($_SERVER['REQUEST_METHOD'] === 'OPTIONS') {
@@ -17,31 +18,23 @@ header('Access-Control-Allow-Headers: *');
 
 // Initialize session
 session_start();
-error_log("Session data: " . print_r($_SESSION, true));
-
-
 
 // Initialize response array
 $response = [];
 
-
 // Handle both GET and POST requests
-$product_id = isset($_REQUEST['item_id']) ? $_REQUEST['item_id'] : null;
-error_log("Product ID: " . $product_id);
-error_log("Received request: " . print_r($_REQUEST, true));
+$item_id = isset($_REQUEST['item_id']) ? $_REQUEST['item_id'] : null;
 
-if ($product_id !== null) {
-    $itemDetails = getItemDetails($product_id);
+if ($item_id !== null) {
+    $itemDetails = getItemDetails($item_id);
     $response['item'] = $itemDetails; // Use the result of getItemDetails
 } else {
-    $response['item'] = null; // Or handle the case where $product_id is null
+    $response['item'] = null; // Or handle the case where $item_id is null
 }
 
-
-if ($_SERVER['REQUEST_METHOD'] === 'POST' && $product_id !== null) {
-    $response['cartUpdate'] = addToCart($product_id);
+if ($_SERVER['REQUEST_METHOD'] === 'POST' && $item_id !== null) {
+    $response['cartUpdate'] = addToCart($item_id);
 } else {
-    
     $response['cartContents'] = displayCart();
 }
 
@@ -49,21 +42,19 @@ header('Content-Type: application/json');
 echo json_encode($response);
 exit;
 
-
-
 // Add item to cart
-function addToCart($product_id, $quantity = 1) {
+function addToCart($item_id, $quantity = 1) {
     if (!isset($_SESSION['cart'])) {
-        $_SESSION['cart'] = array();
+        $_SESSION['cart'] = [];
     }
 
-    if (isset($_SESSION["cart"][$product_id])) {
-        $_SESSION['cart'][$product_id] += $quantity;
+    if (isset($_SESSION["cart"][$item_id])) {
+        $_SESSION['cart'][$item_id] += $quantity;
     } else {
-        $_SESSION['cart'][$product_id] = $quantity;
+        $_SESSION['cart'][$item_id] = $quantity;
     }
 
-    $itemDetails = getItemDetails($product_id);
+    $itemDetails = getItemDetails($item_id);
     return [
         "message" => "Added item to the cart.",
         "item_details" => $itemDetails
@@ -79,44 +70,32 @@ function displayCart() {
     }
 }
 
+function getItemDetails($item_id) {
+    $itemCategory = getItemCategory($item_id);
+    $itemFile = __DIR__ . "/../items/data/$itemCategory.php";
 
-function getItemDetails($product_id) {
-    $itemCategory = getItemCategory($product_id);
-    $itemFile = "../items/$itemCategory.php"; // Ensure this path is correct
-   
-
-    // Ensure the file exists and include it
+    
     if (file_exists($itemFile)) {
-        $items = include($itemFile); // Capture the included data
-
-        // Ensure $items is an array or object before attempting to use it
-        if (is_array($items) || is_object($items)) {
-            foreach ($items as $item) {
-                if ($item['id'] == $product_id) {
-                    return $item; // Return the found item
-                }
+        $items = include($itemFile);
+        
+        foreach ($items as $item) {
+            if ($item['item_id'] == $item_id) {
+                return $item;
             }
-            return ["error" => "Item not found with ID $product_id."];
-        } else {
-            return ["error" => "Item file for $itemCategory does not contain an array or object."];
         }
+        return ["error" => "Item not found with ID $item_id."];
     } else {
         return ["error" => "Item category file not found for $itemCategory."];
     }
 }
 
-
-
-
-
 // Get cart details including item details
 function getCartDetails($cart) {
-    $cartDetails = array();
+    $cartDetails = [];
 
-    foreach ($cart as $product_id => $quantity) {
-        $itemDetails = getItemDetails($product_id);
+    foreach ($cart as $item_id => $quantity) {
+        $itemDetails = getItemDetails($item_id);
         
-        // Check if item details are fetched successfully
         if (isset($itemDetails['error'])) {
             return ["error" => "Failed to get cart details. " . $itemDetails['error']];
         }
@@ -125,24 +104,16 @@ function getCartDetails($cart) {
         $cartDetails[] = $itemDetails;
     }
 
-    // return $cartDetails;
-    json_encode($cartDetails);
+    return $cartDetails;
 }
 
-function getItemCategory($product_id) {
-    if ($product_id >= 1 && $product_id <= 10) {
-        return 'armors';
-    } elseif ($product_id >= 11 && $product_id <= 20) {
-        return 'grimoires';
-    } elseif ($product_id >= 21 && $product_id <= 28) {
-        return 'potions';
-    } elseif ($product_id >= 29 && $product_id <= 33) {
-        return 'shields';
-    } elseif ($product_id >= 34 && $product_id <= 42) {
-        return 'weapons';
-    } else {
-        return 'unknown';
-    }
+function getItemCategory($item_id) {
+    return match (true) {
+        $item_id >= 1 && $item_id <= 10 => 'armors',
+        $item_id >= 11 && $item_id <= 20 => 'grimoires',
+        $item_id >= 21 && $item_id <= 28 => 'potions',
+        $item_id >= 29 && $item_id <= 33 => 'shields',
+        $item_id >= 34 && $item_id <= 42 => 'weapons',
+        default => 'unknown',
+    };
 }
-
-
