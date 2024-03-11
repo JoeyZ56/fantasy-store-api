@@ -72,4 +72,8 @@
 
 ### Regularly review your code and database for security vulnerabilities. Consider using tools or services to audit your site's security.
 
+#### Issues:
+
+##### adding to cart is not working.
+
 <div>
