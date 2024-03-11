@@ -63,31 +63,20 @@ function addToCart($item_id, $quantity = 1) {
 
 // Display cart
 function displayCart() {
-    if (isset($_SESSION['cart']) && !empty($_SESSION['cart'])) {
-        return getCartDetails($_SESSION['cart']);
-    } else {
-        return ["message" => "Your cart is empty (Serverside)."];
-    }
-}
-
-function getItemDetails($item_id) {
-    $itemCategory = getItemCategory($item_id);
-    $itemFile = __DIR__ . "/../items/data/$itemCategory.php";
-
-    
-    if (file_exists($itemFile)) {
-        $items = include($itemFile);
-        
-        foreach ($items as $item) {
-            if ($item['item_id'] == $item_id) {
-                return $item;
-            }
+    // Assuming $_SESSION['cart'] is structured as ['item_id' => quantity, ...]
+    $cartDetails = [];
+    foreach ($_SESSION['cart'] as $item_id => $quantity) {
+        $item = getItemDetails($item_id); // Fetch item details
+        if (!isset($item['error'])) {
+            $item['quantity'] = $quantity; // Add quantity to item details
+            $cartDetails[] = $item; // Add item details to cart details
         }
-        return ["error" => "Item not found with ID $item_id."];
-    } else {
-        return ["error" => "Item category file not found for $itemCategory."];
     }
+    return $cartDetails; // This ensures an array is always returned
 }
+
+
+
 
 // Get cart details including item details
 function getCartDetails($cart) {
