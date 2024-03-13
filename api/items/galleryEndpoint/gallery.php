@@ -5,7 +5,7 @@ ini_set('display_errors', '1');
 
 header('Access-Control-Allow-Origin: *');
 header('Access-Control-Allow-Headers: *');
-header('Content-Type: application/json');
+
 
 // Define the base URL for your API endpoints
 $baseUrl = 'http://localhost/fantasy-store-api/api/items/endpoints'; 
@@ -51,5 +51,6 @@ foreach ($itemEndpoints as $endpoint) {
     curl_close($curl);
 }
 
+header('Content-Type: application/json');
 echo json_encode($galleryImages);
 exit;
