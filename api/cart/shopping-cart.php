@@ -1,8 +1,8 @@
 <?php
 
 // Error reporting
-ini_set('display_errors', 0); 
-error_reporting(E_ALL); 
+// ini_set('display_errors', 1); 
+// error_reporting(E_ALL); 
 
 
 // Handle preflight requests
@@ -19,14 +19,17 @@ header('Access-Control-Allow-Headers: *');
 // Initialize session
 session_start();
 
+
 // Initialize response array
 $response = [];
+
+require_once '../cart/endpoints/getItemDetails.php';
 
 // Handle both GET and POST requests
 $item_id = isset($_REQUEST['item_id']) ? $_REQUEST['item_id'] : null;
 
 if ($item_id !== null) {
-    $itemDetails = getItemDetails($item_id);
+    $itemDetails = findItemById($item_id);
     $response['item'] = $itemDetails; // Use the result of getItemDetails
 } else {
     $response['item'] = null; // Or handle the case where $item_id is null
@@ -54,7 +57,7 @@ function addToCart($item_id, $quantity = 1) {
         $_SESSION['cart'][$item_id] = $quantity;
     }
 
-    $itemDetails = getItemDetails($item_id);
+    $itemDetails = findItemById($item_id);
     return [
         "message" => "Added item to the cart.",
         "item_details" => $itemDetails
@@ -66,7 +69,7 @@ function displayCart() {
     // Assuming $_SESSION['cart'] is structured as ['item_id' => quantity, ...]
     $cartDetails = [];
     foreach ($_SESSION['cart'] as $item_id => $quantity) {
-        $item = getItemDetails($item_id); // Fetch item details
+        $item = findItemById($item_id); // Fetch item details
         if (!isset($item['error'])) {
             $item['quantity'] = $quantity; // Add quantity to item details
             $cartDetails[] = $item; // Add item details to cart details
@@ -83,7 +86,7 @@ function getCartDetails($cart) {
     $cartDetails = [];
 
     foreach ($cart as $item_id => $quantity) {
-        $itemDetails = getItemDetails($item_id);
+        $itemDetails = findItemById($item_id);
         
         if (isset($itemDetails['error'])) {
             return ["error" => "Failed to get cart details. " . $itemDetails['error']];
