@@ -12,11 +12,16 @@ session_start();
 // Initialize the response array or object
 $response = [];
 
+require_once './getItemDetails.php';
+
+
 // Check if the cart exists and isn't empty
 if (isset($_SESSION['cart']) && !empty($_SESSION['cart'])) {
     // Assuming your cart structure in $_SESSION['cart'] is like ['item_id' => quantity, ...]
     $cartItems = [];
     foreach ($_SESSION['cart'] as $item_id => $quantity) {
+        // Debugging statement
+        error_log(print_r($_SESSION['cart'], true));
         // Here you would fetch each item's details by its ID
         // This might involve a call to a function or method that gets item details from a database
         // For demonstration purposes, we'll simulate fetching item details with placeholder data

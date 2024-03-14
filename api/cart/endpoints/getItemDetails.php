@@ -13,35 +13,30 @@ header('Access-Control-Allow-Headers: *');
 function findItemById($item_id) {
     // Manually specify the relative paths to your category data files
     $categoryFiles = [
-        __DIR__ . "../../items/data/armors.php",
-        __DIR__ . "../../items/data/weapons.php", 
-        __DIR__ . "../../items/data/shields.php",
-        __DIR__ . "../../items/data/potions.php",
-        __DIR__ . "../../items/data/grimoires.php",
+        __DIR__ . "/../../items/data/armors.php" => "getArmorsItems",
+        __DIR__ . "/../../items/data/weapons.php" => "getWeaponsItems", 
+        __DIR__ . "/../../items/data/shields.php" => "getShieldsItems",
+        __DIR__ . "/../../items/data/potions.php" => "getPotionsItems",
+        __DIR__ . "/../../items/data/grimoires.php" => "getGrimoiresItems",
     ];
 
-    foreach ($categoryFiles as $file) {
+    foreach ($categoryFiles as $file => $functionName) {
         if (file_exists($file)) {
-            $items = include($file);
-            foreach ($items as $item) {
-                if ($item['item_id'] == $item_id) {
-                    return $item;
+            include_once($file);
+            if (function_exists($functionName)) {
+                $items = $functionName(); // Call the function to get the items array
+                foreach ($items as $item) {
+                    if ($item['item_id'] == $item_id) {
+                        return $item;
+                    }
                 }
+            } else {
+                error_log("Function $functionName does not exist.");
             }
+        } else {
+            error_log("File not found: $file");
         }
     }
+
     return ["error" => "Item not found with ID $item_id."];
 }
-
-// Handle request
-$item_id = $_REQUEST['item_id'] ?? null;
-if ($item_id !== null) {
-    $response = findItemById($item_id);
-} else {
-    $response = ["error" => "No item ID provided."];
-}
-
-// Send JSON response
-header('Content-Type: application/json');
-echo json_encode($response);
-exit;
