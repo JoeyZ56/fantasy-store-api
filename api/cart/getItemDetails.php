@@ -7,17 +7,17 @@ error_reporting(E_ALL);
 header('Access-Control-Allow-Origin: *');
 header('Access-Control-Allow-Headers: *');
 
-// require_once '../shopping-cart.php';
+// require_once '../items/data/armors.php';
 
 // Function to search through all categories for an item
 function findItemById($item_id) {
     // Manually specify the relative paths to your category data files
     $categoryFiles = [
-        __DIR__ . "/../../items/data/armors.php" => "getArmorsItems",
-        __DIR__ . "/../../items/data/weapons.php" => "getWeaponsItems", 
-        __DIR__ . "/../../items/data/shields.php" => "getShieldsItems",
-        __DIR__ . "/../../items/data/potions.php" => "getPotionsItems",
-        __DIR__ . "/../../items/data/grimoires.php" => "getGrimoiresItems",
+        __DIR__ . "/../items/data/armors.php" => "getArmorsItems",
+        __DIR__ . "/../items/data/weapons.php" => "getWeaponsItems", 
+        __DIR__ . "/../items/data/shields.php" => "getShieldsItems",
+        __DIR__ . "/../items/data/potions.php" => "getPotionsItems",
+        __DIR__ . "/../items/data/grimoires.php" => "getGrimoiresItems",
     ];
 
     foreach ($categoryFiles as $file => $functionName) {
@@ -39,4 +39,15 @@ function findItemById($item_id) {
     }
 
     return ["error" => "Item not found with ID $item_id."];
+}
+
+function getItemCategory($item_id) {
+    return match (true) {
+        $item_id >= 1 && $item_id <= 10 => 'armors',
+        $item_id >= 11 && $item_id <= 20 => 'grimoires',
+        $item_id >= 21 && $item_id <= 28 => 'potions',
+        $item_id >= 29 && $item_id <= 33 => 'shields',
+        $item_id >= 34 && $item_id <= 42 => 'weapons',
+        default => 'unknown',
+    };
 }

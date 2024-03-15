@@ -3,16 +3,17 @@
 ini_set('display_errors', 1);
 error_reporting(E_ALL);
 
+session_start();
+
 // CORS headers
 header('Access-Control-Allow-Origin: *');
-header('Content-Type: application/json');
+header('Access-Control-Allow-Headers: *');
 
-session_start();
 
 // Initialize the response array or object
 $response = [];
 
-require_once './getItemDetails.php';
+require_once '../getItemDetails.php';
 
 
 // Check if the cart exists and isn't empty
@@ -37,5 +38,6 @@ if (isset($_SESSION['cart']) && !empty($_SESSION['cart'])) {
     $response['error'] = "Your cart is empty.";
 }
 
+header('Content-Type: application/json');
 echo json_encode($response);
 exit;
