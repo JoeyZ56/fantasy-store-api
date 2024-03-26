@@ -4,21 +4,39 @@
 ini_set('display_errors', 1); 
 error_reporting(E_ALL); 
 
+//Set the session cookie parameters
+// session_set_cookie_params([
+//     'lifetime' => 0,
+//     'path' => '/',
+//     'domain' => 'http://localhost:5173', // Adjust if necessary
+//     'secure' => false, // Set to true if you are using HTTPS
+//     'httponly' => true, // Recommended to prevent access via JavaScript
+//     'samesite' => 'Lax' // Can be 'None', 'Lax', or 'Strict'
+// ]);
+
+
 // Initialize session
-session_start();
-error_log('Session ID on get cart content: ' . session_id());
-
-
-// Handle preflight requests
-if ($_SERVER['REQUEST_METHOD'] === 'OPTIONS') {
-    header('Access-Control-Allow-Origin: *');
-    header('Access-Control-Allow-Headers: *');
-    exit;
+if (session_status() === PHP_SESSION_NONE) {
+    session_start();
 }
 
-// CORS headers for actual requests
-header('Access-Control-Allow-Origin: *');
-header('Access-Control-Allow-Headers: *');
+
+// CORS headers
+// Set the specific origin instead of wildcard
+header('Access-Control-Allow-Origin: https://fantasy-e-commerce-store.vercel.app');
+// Allow credentials
+header('Access-Control-Allow-Credentials: true');
+
+header('Access-Control-Allow-Headers: Content-Type, X-Requested-With, Authorization');
+
+
+// You might also need to handle preflight requests explicitly
+if ($_SERVER['REQUEST_METHOD'] === 'OPTIONS') {
+    // Return status 200 for preflight requests
+    header('Access-Control-Allow-Methods: POST, GET, OPTIONS');
+    exit(0);
+}
+
 
 
 // Initialize response array
@@ -26,6 +44,7 @@ $response = [];
 
 require_once '../getItemDetails.php';
 require_once '../cartManagment.php';
+
 
 // Handle both GET and POST requests
 $item_id = isset($_REQUEST['item_id']) ? $_REQUEST['item_id'] : null;
