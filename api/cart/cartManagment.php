@@ -3,9 +3,6 @@
 ini_set('display_errors', 1);
 error_reporting(E_ALL);
 
-// Initialize session
-// session_start();
-
 // CORS headers
 header('Access-Control-Allow-Origin: *');
 header('Access-Control-Allow-Headers: *');
