@@ -4,15 +4,7 @@
 ini_set('display_errors', 1); 
 error_reporting(E_ALL); 
 
-//Set the session cookie parameters
-// session_set_cookie_params([
-//     'lifetime' => 0,
-//     'path' => '/',
-//     'domain' => 'http://localhost:5173', // Adjust if necessary
-//     'secure' => false, // Set to true if you are using HTTPS
-//     'httponly' => true, // Recommended to prevent access via JavaScript
-//     'samesite' => 'Lax' // Can be 'None', 'Lax', or 'Strict'
-// ]);
+
 
 
 // Initialize session
@@ -22,20 +14,8 @@ if (session_status() === PHP_SESSION_NONE) {
 
 
 // CORS headers
-// Set the specific origin instead of wildcard
-header('Access-Control-Allow-Origin: https://fantasy-e-commerce-store.vercel.app');
-// Allow credentials
-header('Access-Control-Allow-Credentials: true');
-
-header('Access-Control-Allow-Headers: Content-Type, X-Requested-With, Authorization');
-
-
-// You might also need to handle preflight requests explicitly
-if ($_SERVER['REQUEST_METHOD'] === 'OPTIONS') {
-    // Return status 200 for preflight requests
-    header('Access-Control-Allow-Methods: POST, GET, OPTIONS');
-    exit(0);
-}
+header('Access-Control-Allow-Origin: *');
+header('Access-Control-Allow-Headers: *');
 
 
 
