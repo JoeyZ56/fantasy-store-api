@@ -3,8 +3,27 @@
 ini_set('display_errors', 1);
 error_reporting(E_ALL);
 
-header('Access-Control-Allow-Origin: *');
-header('Access-Control-Allow-Headers: *');
+// Initialize session
+session_start();
+
+
+// Development
+header("Access-Control-Allow-Origin: http://localhost:5173");
+header("Access-Control-Allow-Credentials: true");
+header("Access-Control-Allow-Headers: Content-Type, X-Requested-With, Authorization");
+
+// Handle preflight OPTIONS request
+if ($_SERVER['REQUEST_METHOD'] === 'OPTIONS') {
+    http_response_code(204);
+    exit();
+}
+
+
+// CORS headers
+// header('Access-Control-Allow-Origin: https://fantasy-e-commerce-store.vercel.app');
+// header('Access-Control-Allow-Credentials: true');
+// header('Access-Control-Allow-Headers: Content-Type, X-Requested-With, Authorization');
+
 
 // You might also need to handle preflight requests explicitly
 if ($_SERVER['REQUEST_METHOD'] === 'OPTIONS') {
@@ -45,3 +64,11 @@ if (isset($_SESSION['cart']) && !empty($_SESSION['cart'])) {
 header('Content-Type: application/json');
 echo json_encode($response);
 exit;
+
+
+/*
+getCartContent.php:
+
+Specifically designed to retrieve and send the contents of the cart. This script checks if the session cart is set and not empty, then iterates over each item, fetching its details, and finally, returns this data as a JSON response.
+Similar to shopping-cart.php, it relies on sessions and properly configured CORS headers.
+*/

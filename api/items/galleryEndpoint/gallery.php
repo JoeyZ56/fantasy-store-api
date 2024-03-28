@@ -3,21 +3,21 @@
 error_reporting(E_ALL);
 ini_set('display_errors', '1');
 
-//CORS
-// Set the specific origin instead of wildcard
-header('Access-Control-Allow-Origin: hhttps://fantasy-e-commerce-store.vercel.app');
-// Allow credentials
-header('Access-Control-Allow-Credentials: true');
+//Development
+header("Access-Control-Allow-Origin: http://localhost:5173");
+header("Access-Control-Allow-Credentials: true");
+header("Access-Control-Allow-Headers: Content-Type, X-Requested-With, Authorization");
 
-// Add headers to handle preflight requests 
+// Handle preflight OPTIONS request
 if ($_SERVER['REQUEST_METHOD'] === 'OPTIONS') {
-    // Accept requests from the specified origin with credentials
-    header('Access-Control-Allow-Origin: https://fantasy-e-commerce-store.vercel.app');
-    header('Access-Control-Allow-Credentials: true');
-    header('Access-Control-Allow-Headers: Content-Type, Authorization, X-Requested-With');
-    header('Access-Control-Allow-Methods: GET, POST, OPTIONS');
-    exit(0); 
+    http_response_code(204);
+    exit();
 }
+
+//cors
+// header('Access-Control-Allow-Origin: https://fantasy-e-commerce-store.vercel.app');
+// header('Access-Control-Allow-Credentials: true');
+// header('Access-Control-Allow-Headers: Content-Type, X-Requested-With, Authorization');
 
 
 // Define the base URL for your API endpoints

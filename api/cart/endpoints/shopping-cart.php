@@ -12,10 +12,22 @@ if (session_status() === PHP_SESSION_NONE) {
     session_start();
 }
 
+// Development
+header("Access-Control-Allow-Origin: http://localhost:5173");
+header("Access-Control-Allow-Credentials: true");
+header("Access-Control-Allow-Headers: Content-Type, X-Requested-With, Authorization");
 
-// CORS headers
-header('Access-Control-Allow-Origin: *');
-header('Access-Control-Allow-Headers: *');
+// Handle preflight OPTIONS request
+if ($_SERVER['REQUEST_METHOD'] === 'OPTIONS') {
+    http_response_code(204);
+    exit();
+}
+
+// CORS 
+// header('Access-Control-Allow-Origin: https://fantasy-e-commerce-store.vercel.app');
+// header('Access-Control-Allow-Credentials: true');
+// header('Access-Control-Allow-Headers: Content-Type, X-Requested-With, Authorization');
+
 
 
 
@@ -65,3 +77,10 @@ function getCartDetails($cart) {
 }
 
 
+/*
+shopping-cart.php:
+
+Handles both GET and POST requests. It can add an item to the cart if an item ID is provided and a POST request is made. Otherwise, it attempts to display the current cart contents.
+Utilizes sessions to store cart data, making it crucial that the session cookie is properly handled by the client.
+Sends back JSON responses with either the updated cart after adding an item or the current contents of the cart.
+*/
