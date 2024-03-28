@@ -4,6 +4,15 @@ ini_set('display_errors', 1);
 error_reporting(E_ALL);
 
 // Initialize session
+// session_set_cookie_params([
+//     'lifetime' => 0, // or another value, 0 indicates until the browser is closed
+//     'path' => '/', 
+//     'domain' => '', // default value, consider setting if issues persist
+//     'secure' => false, // set to true if using HTTPS
+//     'httponly' => true, // prevents JavaScript access to session cookie
+//     'samesite' => 'Lax' // or 'Strict' based on your cross-origin needs
+// ]);
+
 session_start();
 
 

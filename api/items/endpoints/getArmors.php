@@ -1,5 +1,7 @@
 <?php
 
+session_start();
+
 //Development
 header("Access-Control-Allow-Origin: http://localhost:5173");
 header("Access-Control-Allow-Credentials: true");
