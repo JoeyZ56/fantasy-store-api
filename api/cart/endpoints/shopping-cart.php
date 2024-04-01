@@ -1,16 +1,21 @@
 <?php
+//Start session 
+if (session_status() == PHP_SESSION_NONE) {
+    session_start();
+}
+
+
+//error loging
+error_log('Session ID at start: ' . session_id());
+error_log('Session contents: ' . print_r($_SESSION, true));
+// Proceed to modify the session, then...
+error_log('Session contents after modification: ' . print_r($_SESSION, true));
+
 
 // Error reporting
 ini_set('display_errors', 1); 
 error_reporting(E_ALL); 
 
-
-
-
-// Initialize session
-if (session_status() === PHP_SESSION_NONE) {
-    session_start();
-}
 
 // Development
 header("Access-Control-Allow-Origin: http://localhost:5173");
@@ -36,6 +41,10 @@ $response = [];
 
 require_once '../getItemDetails.php';
 require_once '../cartManagment.php';
+
+if(!isset($_SESSION['cart']) || empty($_SESSION['cart'])){
+    $response['cartContents'] = [];
+}
 
 
 // Handle both GET and POST requests
@@ -75,6 +84,19 @@ function getCartDetails($cart) {
 
     return $cartDetails;
 }
+
+
+//Remove item from cart
+if ($_SERVER['REQUEST_METHOD'] === 'DELETE') {
+    // Parse the request body to get the item_id
+    $input = json_decode(file_get_contents('php://input'), true);
+    $item_id = $input['item_id'] ?? null;
+
+    if ($item_id !== null) {
+        // Call your removeFromCart function here
+    }
+}
+
 
 
 /*

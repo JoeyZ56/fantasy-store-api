@@ -1,10 +1,11 @@
 <?php
+// Start session
+session_start();
+
 // Error reporting
 error_reporting(E_ALL);
 ini_set('display_errors', 'On');
 
-// Start session
-session_start();
 
 // CORS
 header('Access-Control-Allow-Origin: *');

@@ -1,19 +1,13 @@
 <?php
+//Starting session
+if (session_status() == PHP_SESSION_NONE) {
+    session_start();
+}
+
+
 // Error reporting for debugging
 ini_set('display_errors', 1);
 error_reporting(E_ALL);
-
-// Initialize session
-// session_set_cookie_params([
-//     'lifetime' => 0, // or another value, 0 indicates until the browser is closed
-//     'path' => '/', 
-//     'domain' => '', // default value, consider setting if issues persist
-//     'secure' => false, // set to true if using HTTPS
-//     'httponly' => true, // prevents JavaScript access to session cookie
-//     'samesite' => 'Lax' // or 'Strict' based on your cross-origin needs
-// ]);
-
-session_start();
 
 
 // Development
@@ -63,6 +57,9 @@ if (isset($_SESSION['cart']) && !empty($_SESSION['cart'])) {
             $itemDetails['quantity'] = $quantity; // Add quantity information to the item details
             $cartItems[] = $itemDetails; // Add the item details to the cart items array
         }
+        // Debugging statement
+error_log(print_r($_SESSION['cart'], true));
+
     }
     $response['cartContents'] = $cartItems;
 } else {

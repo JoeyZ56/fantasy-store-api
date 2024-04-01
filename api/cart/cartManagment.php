@@ -1,4 +1,5 @@
 <?php
+
 // Error reporting for debugging
 ini_set('display_errors', 1);
 error_reporting(E_ALL);
@@ -28,6 +29,8 @@ function addToCart($item_id, $quantity = 1) {
         "message" => "Added item to the cart.",
         "item_details" => $itemDetails
     ];
+    error_log("Adding to cart: Item ID - $item_id");
+
 }
 
 // Display cart
@@ -51,3 +54,16 @@ function displayCart() {
     return $cartDetails; // Return the compiled cart details
 }
 
+// Remove item from cart
+function removeFromCart($item_id) {
+    if (isset($_SESSION['cart'][$item_id])) {
+        unset($_SESSION['cart'][$item_id]);
+        return [
+            "message" => "Item removed from the cart."
+        ];
+    } else {
+        return [
+            "message" => "Item not found in the cart."
+        ];
+    }
+}

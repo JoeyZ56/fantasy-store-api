@@ -1,4 +1,7 @@
 <?php
+// Initialize session
+session_start();
+
 // Error Reporting
 error_reporting(E_ALL);
 ini_set('display_errors', 'on');
@@ -6,9 +9,6 @@ ini_set('display_errors', 'on');
 // CORS
 header('Access-Control-Allow-Origin: *');
 header('Access-Control-Allow-Headers: *');
-
-// Initialize session
-session_start();
 
 // Variable to track login validation
 $is_invalid = false;

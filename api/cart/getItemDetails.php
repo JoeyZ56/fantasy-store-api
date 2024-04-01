@@ -3,19 +3,6 @@
 ini_set('display_errors', 1); 
 error_reporting(E_ALL);
 
-// CORS headers
-// Set the specific origin instead of wildcard
-// header('Access-Control-Allow-Origin: http://localhost:5173');
-// // Allow credentials
-// header('Access-Control-Allow-Credentials: true');
-
-// // You might also need to handle preflight requests explicitly
-// if ($_SERVER['REQUEST_METHOD'] === 'OPTIONS') {
-//     // Return status 200 for preflight requests
-//     header('Access-Control-Allow-Methods: POST, GET, OPTIONS');
-//     exit(0);
-// }
-
 // Function to search through all categories for an item
 function findItemById($item_id) {
     // Manually specify the relative paths to your category data files

@@ -1,4 +1,5 @@
 <?php
+session_start();
 
 //error reporting
 error_reporting(E_ALL);
@@ -9,7 +10,6 @@ header('Access-Control-Allow-Origin: *');
 header('Access-Control-Allow-Headers: *');
 header('Content-Type: application/json');
 
-session_start();
 
 //clear all session variables
 $_SESSION = [];
