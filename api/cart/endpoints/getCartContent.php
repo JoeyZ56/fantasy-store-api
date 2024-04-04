@@ -9,11 +9,21 @@ if (session_status() == PHP_SESSION_NONE) {
 ini_set('display_errors', 1);
 error_reporting(E_ALL);
 
+// Handle preflight request
+if ($_SERVER['REQUEST_METHOD'] == 'OPTIONS') {
+    header("Access-Control-Allow-Origin: http://localhost:5173");
+    header("Access-Control-Allow-Credentials: true");
+    header("Access-Control-Allow-Methods: GET, POST, PUT, DELETE, OPTIONS");
+    header("Access-Control-Allow-Headers: Content-Type, X-Requested-With, Authorization");
+    exit(0);
+}
+
 
 // Development
 header("Access-Control-Allow-Origin: http://localhost:5173");
 header("Access-Control-Allow-Credentials: true");
 header("Access-Control-Allow-Headers: Content-Type, X-Requested-With, Authorization");
+header("Access-Control-Allow-Methods: GET, POST, PUT, DELETE, OPTIONS");
 
 // Handle preflight OPTIONS request
 if ($_SERVER['REQUEST_METHOD'] === 'OPTIONS') {
@@ -22,13 +32,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'OPTIONS') {
 }
 
 
-// CORS headers
-// header('Access-Control-Allow-Origin: https://fantasy-e-commerce-store.vercel.app');
-// header('Access-Control-Allow-Credentials: true');
-// header('Access-Control-Allow-Headers: Content-Type, X-Requested-With, Authorization');
-
-
-// You might also need to handle preflight requests explicitly
 if ($_SERVER['REQUEST_METHOD'] === 'OPTIONS') {
     // Return status 200 for preflight requests
     header('Access-Control-Allow-Methods: POST, GET, OPTIONS');

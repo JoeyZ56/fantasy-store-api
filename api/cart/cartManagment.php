@@ -4,9 +4,6 @@
 ini_set('display_errors', 1);
 error_reporting(E_ALL);
 
-// CORS headers
-header('Access-Control-Allow-Origin: *');
-header('Access-Control-Allow-Headers: *');
 
 
 require_once __DIR__ . '/./getItemDetails.php';
@@ -47,11 +44,11 @@ function displayCart() {
             }
         }
     } else {
-        // Optionally handle the case where the cart is not set or not an array
+        
         error_log("The cart is not set or not an array.");
     }
 
-    return $cartDetails; // Return the compiled cart details
+    return $cartDetails; 
 }
 
 // Remove item from cart

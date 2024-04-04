@@ -6,33 +6,36 @@ if (session_status() == PHP_SESSION_NONE) {
 
 
 //error loging
-error_log('Session ID at start: ' . session_id());
-error_log('Session contents: ' . print_r($_SESSION, true));
-// Proceed to modify the session, then...
-error_log('Session contents after modification: ' . print_r($_SESSION, true));
+// error_log('Session ID at start: ' . session_id());
+// error_log('Session contents: ' . print_r($_SESSION, true));
+// error_log('Session contents after modification: ' . print_r($_SESSION, true));
 
 
 // Error reporting
 ini_set('display_errors', 1); 
 error_reporting(E_ALL); 
 
+// Handle preflight request
+if ($_SERVER['REQUEST_METHOD'] == 'OPTIONS') {
+    header("Access-Control-Allow-Origin: http://localhost:5173");
+    header("Access-Control-Allow-Credentials: true");
+    header("Access-Control-Allow-Methods: GET, POST, PUT, DELETE, OPTIONS");
+    header("Access-Control-Allow-Headers: Content-Type, X-Requested-With, Authorization");
+    exit(0);
+}
+
 
 // Development
 header("Access-Control-Allow-Origin: http://localhost:5173");
 header("Access-Control-Allow-Credentials: true");
 header("Access-Control-Allow-Headers: Content-Type, X-Requested-With, Authorization");
+header("Access-Control-Allow-Methods: GET, POST, PUT, DELETE, OPTIONS");
 
 // Handle preflight OPTIONS request
 if ($_SERVER['REQUEST_METHOD'] === 'OPTIONS') {
     http_response_code(204);
     exit();
 }
-
-// CORS 
-// header('Access-Control-Allow-Origin: https://fantasy-e-commerce-store.vercel.app');
-// header('Access-Control-Allow-Credentials: true');
-// header('Access-Control-Allow-Headers: Content-Type, X-Requested-With, Authorization');
-
 
 
 
@@ -87,13 +90,13 @@ function getCartDetails($cart) {
 
 
 //Remove item from cart
-if ($_SERVER['REQUEST_METHOD'] === 'DELETE') {
-    // Parse the request body to get the item_id
-    $input = json_decode(file_get_contents('php://input'), true);
-    $item_id = $input['item_id'] ?? null;
+if ($_SERVER["REQUEST_METHOD"] ===  'DELETE') {
+    $item_id = isset($_REQUEST['item_id']) ? $_REQUEST['item_id'] : null;
 
     if ($item_id !== null) {
-        // Call your removeFromCart function here
+        $response['result'] = removeFromCart($item_id);
+    } else {
+        $response['error'] = "Item ID not found";
     }
 }
 
