@@ -68,16 +68,10 @@ error_log(print_r($_SESSION['cart'], true));
 } else {
     // Cart is empty
     $response['error'] = "Your cart is empty.";
+    $response['cartContents'] = [];
 }
 
 header('Content-Type: application/json');
 echo json_encode($response);
 exit;
 
-
-/*
-getCartContent.php:
-
-Specifically designed to retrieve and send the contents of the cart. This script checks if the session cart is set and not empty, then iterates over each item, fetching its details, and finally, returns this data as a JSON response.
-Similar to shopping-cart.php, it relies on sessions and properly configured CORS headers.
-*/

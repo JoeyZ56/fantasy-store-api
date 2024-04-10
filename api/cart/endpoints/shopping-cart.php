@@ -89,16 +89,7 @@ function getCartDetails($cart) {
 }
 
 
-//Remove item from cart
-if ($_SERVER["REQUEST_METHOD"] ===  'DELETE') {
-    $item_id = isset($_REQUEST['item_id']) ? $_REQUEST['item_id'] : null;
 
-    if ($item_id !== null) {
-        $response['result'] = removeFromCart($item_id);
-    } else {
-        $response['error'] = "Item ID not found";
-    }
-}
 
 
 

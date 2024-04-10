@@ -45,6 +45,10 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
             $_SESSION["username"] = $user["name"]; // Assuming 'name' is the column name for username
             $_SESSION["logged_in"] = true;
 
+            error_log('Session ID: ' . session_id());
+error_log('Session user_id: ' . (isset($_SESSION['user_id']) ? $_SESSION['user_id'] : 'none'));
+
+
             // Instead of redirecting, send a JSON response with success status and username for local storage
             echo json_encode([
                 "success" => true,
