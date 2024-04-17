@@ -1,10 +1,8 @@
 <?php
 require_once '../../utilities/session_setting.php';
-
-//Start session 
-if (session_status() == PHP_SESSION_NONE) {
-    session_start();
-}
+require_once '../../utilities/cors_header.php';
+require_once '../getItemDetails.php';
+require_once '../cartManagment.php';
 
 
 //error loging
@@ -12,19 +10,12 @@ if (session_status() == PHP_SESSION_NONE) {
 // error_log('Session contents: ' . print_r($_SESSION, true));
 // error_log('Session contents after modification: ' . print_r($_SESSION, true));
 
-
 // Error reporting
 ini_set('display_errors', 1);
 error_reporting(E_ALL);
 
-// CORS
-require_once '../../utilities/cors_header.php';
-
 // Initialize response array
 $response = [];
-
-require_once '../getItemDetails.php';
-require_once '../cartManagment.php';
 
 if (!isset($_SESSION['cart']) || empty($_SESSION['cart'])) {
     $response['cartContents'] = [];

@@ -1,27 +1,12 @@
 <?php
+require_once '../../utilities/cors_header.php';
+
 // Enable error reporting for debugging
 error_reporting(E_ALL);
 ini_set('display_errors', '1');
 
-//Development
-header("Access-Control-Allow-Origin: http://localhost:5173");
-header("Access-Control-Allow-Credentials: true");
-header("Access-Control-Allow-Headers: Content-Type, X-Requested-With, Authorization");
-
-// Handle preflight OPTIONS request
-if ($_SERVER['REQUEST_METHOD'] === 'OPTIONS') {
-    http_response_code(204);
-    exit();
-}
-
-//cors
-// header('Access-Control-Allow-Origin: https://fantasy-e-commerce-store.vercel.app');
-// header('Access-Control-Allow-Credentials: true');
-// header('Access-Control-Allow-Headers: Content-Type, X-Requested-With, Authorization');
-
-
 // Define the base URL for your API endpoints
-$baseUrl = 'http://localhost/fantasy-store-api/api/items/endpoints'; 
+$baseUrl = 'http://localhost/fantasy-store-api/api/items/endpoints';
 
 // Define API endpoints for each item type
 $itemEndpoints = [

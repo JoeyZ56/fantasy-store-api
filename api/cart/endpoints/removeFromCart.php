@@ -1,20 +1,11 @@
 <?php
 require_once '../../utilities/session_setting.php';
-
-// Start session 
-if (session_status() == PHP_SESSION_NONE) {
-    session_start();
-}
-
-// CORS
 require_once '../../utilities/cors_header.php';
+require_once '../cartManagment.php';
+require_once '../getItemDetails.php';
 
 // Initialize the response array
 $response = [];
-
-
-require_once '../cartManagment.php';
-require_once '../getItemDetails.php';
 
 // Remove item from cart
 if ($_SERVER["REQUEST_METHOD"] === 'DELETE') {

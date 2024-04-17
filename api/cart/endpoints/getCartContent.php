@@ -1,34 +1,25 @@
 <?php
 require_once '../../utilities/session_setting.php';
-
-//Starting session
-if (session_status() == PHP_SESSION_NONE) {
-    session_start();
-}
+require_once '../../utilities/cors_header.php';
+require_once '../getItemDetails.php';
 
 
 // Error reporting for debugging
 ini_set('display_errors', 1);
 error_reporting(E_ALL);
 
-// CORS
-require_once '../../utilities/cors_header.php';
+
 
 
 // Initialize the response array or object
 $response = [];
-
-require_once '../getItemDetails.php';
-
-
-
 
 // Check if the cart exists and isn't empty
 if (isset($_SESSION['cart']) && !empty($_SESSION['cart'])) {
     $cartItems = [];
     foreach ($_SESSION['cart'] as $item_id => $quantity) {
         // Debugging statement
-        error_log(print_r($_SESSION['cart'], true));
+        // error_log(print_r($_SESSION['cart'], true));
         // Here you would fetch each item's details by its ID
         // This might involve a call to a function or method that gets item details from a database
         $itemDetails = findItemById($item_id); // You need to implement this function
@@ -37,7 +28,7 @@ if (isset($_SESSION['cart']) && !empty($_SESSION['cart'])) {
             $cartItems[] = $itemDetails; // Add the item details to the cart items array
         }
         // Debugging statement
-        error_log(print_r($_SESSION['cart'], true));
+        // error_log(print_r($_SESSION['cart'], true));
     }
     $response['cartContents'] = $cartItems;
 } else {

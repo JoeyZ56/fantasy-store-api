@@ -8,4 +8,6 @@ session_set_cookie_params([
     'httponly' => true,  // Accessible only through the HTTP protocol
     'samesite' => 'Lax'  // Protects against CSRF attacks in some contexts
 ]);
-session_start();
+if (session_status() == PHP_SESSION_NONE) {
+    session_start();
+}

@@ -1,16 +1,13 @@
 <?php
 require_once '../utilities/session_setting.php';
-
-if (session_status() == PHP_SESSION_NONE) {
-    session_start();
-}
+require_once '../utilities/cors_header.php';
 
 // Error Reporting
 error_reporting(E_ALL);
 ini_set('display_errors', 'on');
 
-// CORS
-require_once '../utilities/cors_header.php';
+// Log the session data for debugging
+error_log("Checking login status before execution: " . print_r($_SESSION, true));
 
 // Variable to track login validation
 $is_invalid = false;
@@ -32,6 +29,8 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
             $_SESSION["user_id"] = $user["id"];
             $_SESSION["username"] = $user["name"];
             $_SESSION["logged_in"] = true;
+
+            error_log("Session variables set after execution: " . print_r($_SESSION, true));
 
             session_write_close(); // Close the session to save data
 

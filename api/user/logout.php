@@ -1,17 +1,10 @@
 <?php
 require_once '../utilities/session_setting.php';
-
-if (session_status() == PHP_SESSION_NONE) {
-    session_start();
-}
+require_once '../utilities/cors_header.php';
 
 //error reporting
 error_reporting(E_ALL);
 ini_set('display_errors', 'On');
-
-//CORs
-require_once '../utilities/cors_header.php';
-
 
 //clear all session variables
 $_SESSION = [];
