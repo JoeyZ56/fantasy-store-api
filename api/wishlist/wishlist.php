@@ -1,40 +1,38 @@
 <?php
+require_once '../utilities/session_setting.php';
+
 if (session_status() == PHP_SESSION_NONE) {
     session_start();
 }
 
-header("Access-Control-Allow-Origin: http://localhost:5173");
-header("Access-Control-Allow-Credentials: true");
-header("Access-Control-Allow-Headers: Content-Type, X-Requested-With, Authorization");
-header("Access-Control-Allow-Methods: GET, POST, PUT, DELETE, OPTIONS");
-header('Content-Type: application/json');  // Ensure the correct content type is set for JSON response
+// Including CORS settings
+require_once '../utilities/cors_header.php';
 
-if ($_SERVER['REQUEST_METHOD'] === 'OPTIONS') {
-    http_response_code(204);
-    exit();
-}
+// Log the session data for debugging
+error_log("Checking login status in wishlist: " . print_r($_SESSION, true));
 
+// Check if user is logged in
 if (!isset($_SESSION['user_id'])) {
     echo json_encode(['error' => 'Not logged in']);
-    exit(403);
+    exit(403);  // Using HTTP status code 403 for Forbidden access
 }
 
 $json_str = file_get_contents('php://input');
 $data = json_decode($json_str, true);
 
-$user_id = filter_var($data['user_id'], FILTER_SANITIZE_NUMBER_INT);
 $item_id = filter_var($data['item_id'], FILTER_SANITIZE_NUMBER_INT);
+$user_id = $_SESSION['user_id']; // Directly using session user_id
 
-if (!$user_id || !$item_id) {
-    echo json_encode(['error' => 'Invalid user or item ID']);
-    exit(400);
+if (!$item_id) {
+    echo json_encode(['error' => 'Invalid item ID']);
+    exit(400);  // Using HTTP status code 400 for Bad Request
 }
 
 require_once("../database/database.php");
 
 if (!$conn) {
     echo json_encode(['error' => "Database connection error"]);
-    exit(500);
+    exit(500);  // Using HTTP status code 500 for Internal Server Error
 }
 
 $stmt = $conn->prepare("INSERT INTO wishlist (user_id, item_id) VALUES (?, ?)");
@@ -54,4 +52,3 @@ if (!$stmt->execute()) {
 }
 
 echo json_encode(['success' => 'Item added to wishlist']);
-?>

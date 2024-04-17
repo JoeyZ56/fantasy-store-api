@@ -1,4 +1,6 @@
 <?php
+require_once '../../utilities/session_setting.php';
+
 //Starting session
 if (session_status() == PHP_SESSION_NONE) {
     session_start();
@@ -9,34 +11,8 @@ if (session_status() == PHP_SESSION_NONE) {
 ini_set('display_errors', 1);
 error_reporting(E_ALL);
 
-// Handle preflight request
-if ($_SERVER['REQUEST_METHOD'] == 'OPTIONS') {
-    header("Access-Control-Allow-Origin: http://localhost:5173");
-    header("Access-Control-Allow-Credentials: true");
-    header("Access-Control-Allow-Methods: GET, POST, PUT, DELETE, OPTIONS");
-    header("Access-Control-Allow-Headers: Content-Type, X-Requested-With, Authorization");
-    exit(0);
-}
-
-
-// Development
-header("Access-Control-Allow-Origin: http://localhost:5173");
-header("Access-Control-Allow-Credentials: true");
-header("Access-Control-Allow-Headers: Content-Type, X-Requested-With, Authorization");
-header("Access-Control-Allow-Methods: GET, POST, PUT, DELETE, OPTIONS");
-
-// Handle preflight OPTIONS request
-if ($_SERVER['REQUEST_METHOD'] === 'OPTIONS') {
-    http_response_code(204);
-    exit();
-}
-
-
-if ($_SERVER['REQUEST_METHOD'] === 'OPTIONS') {
-    // Return status 200 for preflight requests
-    header('Access-Control-Allow-Methods: POST, GET, OPTIONS');
-    exit(0);
-}
+// CORS
+require_once '../../utilities/cors_header.php';
 
 
 // Initialize the response array or object
@@ -61,8 +37,7 @@ if (isset($_SESSION['cart']) && !empty($_SESSION['cart'])) {
             $cartItems[] = $itemDetails; // Add the item details to the cart items array
         }
         // Debugging statement
-error_log(print_r($_SESSION['cart'], true));
-
+        error_log(print_r($_SESSION['cart'], true));
     }
     $response['cartContents'] = $cartItems;
 } else {
@@ -74,4 +49,3 @@ error_log(print_r($_SESSION['cart'], true));
 header('Content-Type: application/json');
 echo json_encode($response);
 exit;
-

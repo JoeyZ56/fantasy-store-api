@@ -1,22 +1,12 @@
 <?php
-session_start();
+require_once '../../utilities/session_setting.php';
 
-//Development
-header("Access-Control-Allow-Origin: http://localhost:5173");
-header("Access-Control-Allow-Credentials: true");
-header("Access-Control-Allow-Headers: Content-Type, X-Requested-With, Authorization");
-
-// Handle preflight OPTIONS request
-if ($_SERVER['REQUEST_METHOD'] === 'OPTIONS') {
-    http_response_code(204);
-    exit();
+if (session_status() == PHP_SESSION_NONE) {
+    session_start();
 }
 
-//CORS
-// header('Access-Control-Allow-Origin: https://fantasy-e-commerce-store.vercel.app');
-// header('Access-Control-Allow-Credentials: true');
-// header('Access-Control-Allow-Headers: Content-Type, X-Requested-With, Authorization');
-
+//CORs
+require_once '../../utilities/cors_header.php';
 
 require_once '../data/weapons.php';
 

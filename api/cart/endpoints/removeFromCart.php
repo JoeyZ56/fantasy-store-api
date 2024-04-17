@@ -1,24 +1,19 @@
 <?php
+require_once '../../utilities/session_setting.php';
+
 // Start session 
 if (session_status() == PHP_SESSION_NONE) {
     session_start();
 }
 
-header("Access-Control-Allow-Origin: http://localhost:5173");
-header("Access-Control-Allow-Credentials: true");
-header("Access-Control-Allow-Methods: GET, POST, PUT, DELETE, OPTIONS");
-header("Access-Control-Allow-Headers: Content-Type, X-Requested-With, Authorization");
+// CORS
+require_once '../../utilities/cors_header.php';
 
 // Initialize the response array
 $response = [];
 
-// Handle preflight request
-if ($_SERVER['REQUEST_METHOD'] === 'OPTIONS') {
-    http_response_code(204);
-    exit();
-}
 
-require_once '../cartManagment.php'; 
+require_once '../cartManagment.php';
 require_once '../getItemDetails.php';
 
 // Remove item from cart

@@ -1,4 +1,6 @@
 <?php
+require_once '../../utilities/session_setting.php';
+
 //Start session 
 if (session_status() == PHP_SESSION_NONE) {
     session_start();
@@ -12,32 +14,11 @@ if (session_status() == PHP_SESSION_NONE) {
 
 
 // Error reporting
-ini_set('display_errors', 1); 
-error_reporting(E_ALL); 
+ini_set('display_errors', 1);
+error_reporting(E_ALL);
 
-// Handle preflight request
-if ($_SERVER['REQUEST_METHOD'] == 'OPTIONS') {
-    header("Access-Control-Allow-Origin: http://localhost:5173");
-    header("Access-Control-Allow-Credentials: true");
-    header("Access-Control-Allow-Methods: GET, POST, PUT, DELETE, OPTIONS");
-    header("Access-Control-Allow-Headers: Content-Type, X-Requested-With, Authorization");
-    exit(0);
-}
-
-
-// Development
-header("Access-Control-Allow-Origin: http://localhost:5173");
-header("Access-Control-Allow-Credentials: true");
-header("Access-Control-Allow-Headers: Content-Type, X-Requested-With, Authorization");
-header("Access-Control-Allow-Methods: GET, POST, PUT, DELETE, OPTIONS");
-
-// Handle preflight OPTIONS request
-if ($_SERVER['REQUEST_METHOD'] === 'OPTIONS') {
-    http_response_code(204);
-    exit();
-}
-
-
+// CORS
+require_once '../../utilities/cors_header.php';
 
 // Initialize response array
 $response = [];
@@ -45,7 +26,7 @@ $response = [];
 require_once '../getItemDetails.php';
 require_once '../cartManagment.php';
 
-if(!isset($_SESSION['cart']) || empty($_SESSION['cart'])){
+if (!isset($_SESSION['cart']) || empty($_SESSION['cart'])) {
     $response['cartContents'] = [];
 }
 
@@ -71,12 +52,13 @@ echo json_encode($response);
 exit;
 
 // Get cart details including item details
-function getCartDetails($cart) {
+function getCartDetails($cart)
+{
     $cartDetails = [];
 
     foreach ($cart as $item_id => $quantity) {
         $itemDetails = findItemById($item_id);
-        
+
         if (isset($itemDetails['error'])) {
             return ["error" => "Failed to get cart details. " . $itemDetails['error']];
         }
