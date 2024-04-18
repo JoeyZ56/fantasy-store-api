@@ -17,6 +17,8 @@ if (!isset($_SESSION['user_id'])) {
     exit(403);  // Using HTTP status code 403 for Forbidden access
 }
 
+error_log("User ID: " . $_SESSION['user_id']);
+
 $json_str = file_get_contents('php://input');
 $data = json_decode($json_str, true);
 
