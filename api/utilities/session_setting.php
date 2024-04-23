@@ -1,5 +1,4 @@
 <?php
-//Want to address again when moving to production
 // Set session cookie parameters
 session_set_cookie_params([
     'lifetime' => 0,  // Session cookie will expire when the browser is closed
@@ -8,10 +7,17 @@ session_set_cookie_params([
     'secure' => false,  // Set to true in production if using HTTPS
     'httponly' => true,  // Accessible only through the HTTP protocol
     'samesite' => 'Lax'  // Protects against CSRF attacks in some contexts
+
 ]);
+// error_log("Session Cookie Params: " . json_encode(session_get_cookie_params()));
+
 if (session_status() == PHP_SESSION_NONE) {
     session_start();
+    error_log("Session started with ID: " . session_id());
+    error_log("Cookies sent: " . json_encode($_COOKIE));
+    error_log("Session data retrieved: " . print_r($_SESSION, true));
 }
+
 
 
 //Production example:

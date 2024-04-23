@@ -4,12 +4,6 @@ require_once '../../utilities/cors_header.php';
 require_once '../getItemDetails.php';
 require_once '../cartManagment.php';
 
-
-//error loging
-// error_log('Session ID at start: ' . session_id());
-// error_log('Session contents: ' . print_r($_SESSION, true));
-// error_log('Session contents after modification: ' . print_r($_SESSION, true));
-
 // Error reporting
 ini_set('display_errors', 1);
 error_reporting(E_ALL);
@@ -60,16 +54,3 @@ function getCartDetails($cart)
 
     return $cartDetails;
 }
-
-
-
-
-
-
-/*
-shopping-cart.php:
-
-Handles both GET and POST requests. It can add an item to the cart if an item ID is provided and a POST request is made. Otherwise, it attempts to display the current cart contents.
-Utilizes sessions to store cart data, making it crucial that the session cookie is properly handled by the client.
-Sends back JSON responses with either the updated cart after adding an item or the current contents of the cart.
-*/
