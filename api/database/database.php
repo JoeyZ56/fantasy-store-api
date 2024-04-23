@@ -12,7 +12,3 @@ $mysqli = new mysqli($host, $username, $password, $dbname);
 if ($mysqli->connect_errno) {
     die("Failed to connect to MySQL: " . $mysqli->connect_error);
 }
-
-// Optionally return the connection object
-// This allows for including this file and getting the $mysqli variable
-return $mysqli;
