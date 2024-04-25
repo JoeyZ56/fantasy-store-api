@@ -1,5 +1,5 @@
 <?php
-require_once '../../utilities/session_setting.php';
+require_once '../../utilities/session_manager.php';
 require_once '../../utilities/cors_header.php';
 require_once '../cartManagment.php';
 require_once '../getItemDetails.php';
