@@ -4,7 +4,7 @@ require_once '../utilities/cors_header.php';
 require_once("../database/database.php");
 
 // Log the session data for debugging
-error_log("Checking login status: " . print_r($_SESSION, true));
+// error_log("Checking login status: " . print_r($_SESSION, true));
 
 error_reporting(E_ALL);
 ini_set('display_errors', 'On');

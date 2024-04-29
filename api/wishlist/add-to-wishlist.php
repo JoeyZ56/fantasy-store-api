@@ -8,7 +8,7 @@ require_once '../database/database.php';
 
 // Ensure the user is logged in
 if (!isset($_SESSION['user_id'])) {  // Ensure this session variable is the same throughout your application
-    error_log("User not logged in attempt.");
+    // error_log("User not logged in attempt.");
     echo json_encode(['success' => false, 'message' => "User not logged in"]);
     exit;
 }
