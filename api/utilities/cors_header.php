@@ -3,8 +3,9 @@
 
 // Determine the origin of the request and set a controlled CORS policy
 $allowedOrigins = [
-    'https://fantasy-e-commerce-store.vercel.app', // Notice no trailing slash
-    'http://localhost:5173' // Local development origin
+    'https://fantasy-e-commerce-store.vercel.app', // Production origin
+    'http://localhost:5005', // Local development origin
+    "http://localhost:5173/" // Live Server
 ];
 
 // Use the Origin HTTP request header to dynamically set the allowed origin if it's in the list of allowed origins

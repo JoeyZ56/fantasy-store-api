@@ -26,15 +26,16 @@
 
 
 //Production example:
-$usableDomanins = [
-    'https://fantasy-e-commerce-store.vercel.app/',
-    'http://localhost:5173'
-];
+$usableDomain = 'localhost';  // Default to localhost
+
+if ($_SERVER['HTTP_HOST'] == 'fantasy-e-commerce-store.vercel.app') {
+    $usableDomain = '.fantasy-e-commerce-store.vercel.app';  // Use dot prefix to include all subdomains
+}
 
 session_set_cookie_params([
     'lifetime' => 0,  // The cookie expires when the browser is closed
     'path' => '/',  // Available throughout the entire domain
-    'domain' => $usableDomanins,  // Change to your domain, accessible on all subdomains
+    'domain' => $usableDomain,  // Ensure this matches your deployed domain
     'secure' => true,  // Ensure cookies are sent over HTTPS only
     'httponly' => true,  // Cookie not accessible via JavaScript (XSS protection)
     'samesite' => 'Strict'  // Strictly same site; no cross-site usage
